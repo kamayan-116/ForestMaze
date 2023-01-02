@@ -5,12 +5,10 @@ using UnityEngine.UI;
 
 public class ButtonCtrl : MonoBehaviour
 {
-    [SerializeField] HandCoinCtrl handCoinCtrl;
     [SerializeField] PlayerCtrl player;
     [SerializeField] RotatingSun sun;
-    public bool isButtonOk = false;
     [SerializeField] Button  button;
-    [SerializeField] int count;
+    public int count;
     [SerializeField] GameObject Effect;
 
     // Start is called before the first frame update
@@ -27,10 +25,10 @@ public class ButtonCtrl : MonoBehaviour
 
     public void TimeClick()
     {
-        if(isButtonOk && count > 0)
+        if(count > 0)
         {
-            // Debug.Log("TimeBack押された");
-            handCoinCtrl.UseMoney(75);
+            //Debug.Log("TimeBack押された");
+            HandCoinCtrl.instance.UseMoney(75);
             count--;
             Effect.gameObject.SetActive(true);
             sun.SunBack(90.0f);
@@ -46,10 +44,10 @@ public class ButtonCtrl : MonoBehaviour
 
     public void SpeedClick()
     {
-        if(isButtonOk && count > 0)
+        if(count > 0)
         {
-            // Debug.Log("Speed押された");
-            handCoinCtrl.UseMoney(50);
+            //Debug.Log("Speed押された");
+            HandCoinCtrl.instance.UseMoney(50);
             player.SpeedUp(3.0f);
             count--;
             if(count == 0)
@@ -64,10 +62,10 @@ public class ButtonCtrl : MonoBehaviour
 
     public void DistanceClick()
     {
-        if(isButtonOk && count > 0)
+        if(count > 0)
         {
-            // Debug.Log("Distance押された");
-            handCoinCtrl.UseMoney(25);
+            //Debug.Log("Distance押された");
+            HandCoinCtrl.instance.UseMoney(25);
             Effect.gameObject.SetActive(true);
         } else
         {
@@ -77,10 +75,10 @@ public class ButtonCtrl : MonoBehaviour
 
     public void MapClick()
     {
-        if(isButtonOk && count > 0)
+        if(count > 0)
         {
-            // Debug.Log("Map押された");
-            handCoinCtrl.UseMoney(100);
+            ///Debug.Log("Map押された");
+            HandCoinCtrl.instance.UseMoney(100);
             Effect.gameObject.SetActive(true);
             if(count == 0)
             {
@@ -96,7 +94,7 @@ public class ButtonCtrl : MonoBehaviour
         // ボタン有効化
         // ボタンの表示
         if(count > 0) {
-            isButtonOk = true;
+            button.interactable = true;
             button.image.color = new Color32(255, 255, 255, 255);
         }
     }
@@ -104,7 +102,7 @@ public class ButtonCtrl : MonoBehaviour
     public void ButtonHide(){
         // ボタン無効化
         // ボタンの非表示
-        isButtonOk = false;
+        button.interactable = false;
         button.image.color = new Color32(255, 255, 255, 100);
     }
 

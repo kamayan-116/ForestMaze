@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class HandCoinCtrl : MonoBehaviour
 {
-    [SerializeField] private int stageNo;
-
     [SerializeField] private Button distanceButton;
     [SerializeField] bool disButtonEnable;
     [SerializeField] ButtonCtrl timeCtrl;
@@ -14,14 +12,24 @@ public class HandCoinCtrl : MonoBehaviour
     [SerializeField] ButtonCtrl distanceCtrl;
     [SerializeField] ButtonCtrl mapCtrl;
     [SerializeField] Text handcoinText;
-    public int CoinNum = 0;
+    public int CoinNum = 0;  // 現在の所持コイン数
+    public int stageCoinNum = 0;  // ステージの合計獲得コイン数
+    public static HandCoinCtrl instance;
+    public static HandCoinCtrl Instance {get => instance;}
+
+    private void Awake()
+    {
+        instance = this.GetComponent<HandCoinCtrl>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(stageNo < 5)
+        ButtonManagement();
+        if(NonGameCanvasCtrl.Instance.stageNo < 5)
         {
             disButtonEnable = false;
+            distanceButton.image.color = new Color32(255, 255, 255, 100);
         }
         else
         {
@@ -33,12 +41,13 @@ public class HandCoinCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        handcoinText.text = "HandCoin:" + CoinNum.ToString("D3") + "枚";
+        handcoinText.text = "：" + CoinNum.ToString("D3");
     }
 
     public void GetMoney(int CoinValue)
     {
         CoinNum += CoinValue;
+        stageCoinNum += CoinValue;
         ButtonManagement();
     }
 
@@ -60,25 +69,25 @@ public class HandCoinCtrl : MonoBehaviour
             case < 50:
                 timeCtrl.ButtonHide();
                 speedCtrl.ButtonHide();
-                distanceCtrl.ButtonAppear();
+                if(disButtonEnable) distanceCtrl.ButtonAppear();
                 mapCtrl.ButtonHide();
                 break;
             case < 75:
                 timeCtrl.ButtonHide();
                 speedCtrl.ButtonAppear();
-                distanceCtrl.ButtonAppear();
+                if(disButtonEnable) distanceCtrl.ButtonAppear();
                 mapCtrl.ButtonHide();
                 break;
             case < 100:
                 timeCtrl.ButtonAppear();
                 speedCtrl.ButtonAppear();
-                distanceCtrl.ButtonAppear();
+                if(disButtonEnable) distanceCtrl.ButtonAppear();
                 mapCtrl.ButtonHide();
                 break;
             default:
                 timeCtrl.ButtonAppear();
                 speedCtrl.ButtonAppear();
-                distanceCtrl.ButtonAppear();
+                if(disButtonEnable) distanceCtrl.ButtonAppear();
                 mapCtrl.ButtonAppear();
                 break;
         }

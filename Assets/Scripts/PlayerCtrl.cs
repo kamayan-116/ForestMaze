@@ -9,13 +9,15 @@ public class PlayerCtrl : MonoBehaviour
 {
     CharacterController charCtrl;
     Animator animCtrl;
-    [SerializeField] float speed = 4;
+    [SerializeField] float speed = 5;
     [SerializeField] bool useCameraDir = true;
     [SerializeField] float movedirOffset = 0;
     [SerializeField] bool zEnable = true;
     [SerializeField] bool xEnable = true;
+    [SerializeField] MakeMaze makeMaze;
+    [SerializeField] ButtonCtrl timebuttonClick;
+    [SerializeField] RotatingSun rotatingSun;
     public int Goalnumber = 0;
-    GameObject goalwall;
     Vector3 forwardVec;
     Vector3 rightVec;
 
@@ -28,7 +30,6 @@ public class PlayerCtrl : MonoBehaviour
         var angles = new Vector3(0, movedirOffset, 0);
         forwardVec = Quaternion.Euler(angles) * Vector3.forward;
         rightVec = Quaternion.Euler(angles) * Vector3.right;
-        goalwall = GameObject.Find("GoalWall");
     }
 
     float fallpow = -2.0f;
@@ -114,15 +115,20 @@ public class PlayerCtrl : MonoBehaviour
         {
             Goalnumber++;
             // Debug.Log($"{Goalnumber}");
-            if(Goalnumber == 2)
+            if(Goalnumber == makeMaze.goalCondition)
             {
-                Destroy(goalwall);
+                SetActiveKey(5);
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Switch")
+        {
+            SetActiveKey(4);
+        }
+
         if (other.gameObject.tag == "Goal")
         {
             SceneManager.sceneLoaded += GameSceneLoaded;
@@ -130,12 +136,16 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+    public void SetActiveKey(int childNum)
+    {
+        this.transform.GetChild(childNum).gameObject.SetActive(true);
+    }
+
     public void GameSceneLoaded(Scene nongame, LoadSceneMode mode)
     {
         var canvasManager = GameObject.Find("Canvas").GetComponent<NonGameCanvasCtrl>();
 
-        canvasManager.ResultPanel(0);
-
+        canvasManager.ResultPanel(0, HandCoinCtrl.instance.stageCoinNum, 195.0f - rotatingSun.rottmp, HandCoinCtrl.instance.CoinNum, timebuttonClick.count + 1);
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
 

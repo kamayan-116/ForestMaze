@@ -43,6 +43,7 @@ public class MakeMaze : MonoBehaviour
     public List<Vector2Int> noPassCells;   // 行き詰まり座標
     private List<Vector2Int> stayDogCells = new List<Vector2Int>();   // 止まっている犬の配置候補座標
     public Vector2Int walkDogStartCell;
+    public int goalCondition;
 
     private Vector2Int startPos;    //スタートの座標
     private Vector2Int goalPos;     //ゴールの座標
@@ -137,7 +138,7 @@ public class MakeMaze : MonoBehaviour
             startCells.Pop();
         }
 
-        if(moveMap > 4)
+        if(moveMap > 30)
         {
             isGoalSet = true;
         }
@@ -316,6 +317,7 @@ public class MakeMaze : MonoBehaviour
                 }
                 break;
             case 3:
+                goalCondition = 1;
                 for(int i=0; i<=3; i++)
                 {
                     itemObj[i].SetActive(true);
@@ -366,6 +368,7 @@ public class MakeMaze : MonoBehaviour
                 }
                 break;
             case 4:
+                goalCondition = 1;
                 for(int i=0; i<=5; i++)
                 {
                     itemObj[i].SetActive(true);
@@ -426,6 +429,7 @@ public class MakeMaze : MonoBehaviour
                 break;
             case 5:
             case 6:
+                goalCondition = 2;
                 for(int i=0; i<7; i++)
                 {
                     itemObj[i].SetActive(true);

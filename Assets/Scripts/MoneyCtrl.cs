@@ -8,17 +8,19 @@ public class MoneyCtrl : MonoBehaviour
     bool isGet = false;
     float lifetime = 0.5f;
     GameObject HandCoinText;
+    [SerializeField] int coinValue;
+    // private bool _isRendered = false;  // カメラに表示されているか
 
     // Start is called before the first frame update
     void Start()
     {
-        HandCoinText = GameObject.Find("HandCoin");
+        HandCoinText = GameObject.Find("HandCoinText");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isGet == true)
+        if(isGet)
         {
             transform.Rotate(Vector3.up * speed * 10f * Time.deltaTime, Space.World);
 
@@ -28,12 +30,6 @@ public class MoneyCtrl : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        } else
-        {
-            if(this.gameObject.tag == "Coin")
-            {
-                transform.Rotate(Vector3.up * speed * Time.deltaTime, Space.World);
-            }
         }
     }
 
@@ -42,18 +38,16 @@ public class MoneyCtrl : MonoBehaviour
         if(!isGet && other.CompareTag("Player"))
         {
             isGet = true;
-
             transform.position += Vector3.up * 1.5f;
-            if(this.gameObject.tag == "GoldBar")
-            {
-                // Debug.Log("BarGet");
-                HandCoinText.GetComponent<HandCoinCtrl>().GetMoney(20);
-            }
-            if(this.gameObject.tag == "Coin")
-            {
-                // Debug.Log("CoinGet");
-                HandCoinText.GetComponent<HandCoinCtrl>().GetMoney(1);
-            }
+            HandCoinText.GetComponent<HandCoinCtrl>().GetMoney(coinValue);
         }        
+    }
+
+    private void OnWillRenderObject()
+    {
+        if(Camera.current.tag == "MainCamera" && this.gameObject.tag == "Coin")
+        {
+            transform.Rotate(Vector3.up * speed * Time.deltaTime, Space.World);
+        }   
     }
 }

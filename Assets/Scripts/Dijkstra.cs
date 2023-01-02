@@ -35,7 +35,7 @@ public class Dijkstra
         var result = new List<Vector2Int>();
 
         var travelingpos = _start;
-        Debug.Log(costmap[travelingpos.y+1,travelingpos.x+1]);
+        // Debug.Log(costmap[travelingpos.y+1,travelingpos.x+1]);
         while(costmap[travelingpos.y+1,travelingpos.x+1] > 0)
         {
             int costtmp = costmap[travelingpos.y+1, travelingpos.x+1];

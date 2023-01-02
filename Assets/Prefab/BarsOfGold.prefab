@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1567468741091675391}
   - component: {fileID: 1473783775057564521}
   - component: {fileID: 8495526139471563088}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: BarsOfGold
   m_TagString: GoldBar
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554223688670294059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -96,8 +96,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0.00000028312206, y: -0.000000007450581, z: 0}
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8495526139471563088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,3 +110,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a79e0322dc22b4eb790288cdc8bdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinValue: 20

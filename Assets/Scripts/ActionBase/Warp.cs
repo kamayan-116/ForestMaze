@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Warp : MonoBehaviour ,ActionBase
 {
-	[SerializeField]
-    Transform TargetObject;
+	[SerializeField] Transform TargetObject;
 
     public  void Action()
     {
@@ -19,6 +18,11 @@ public class Warp : MonoBehaviour ,ActionBase
         else
         {
             TargetObject.position = transform.position;
+        }
+
+        if(NonGameCanvasCtrl.Instance.stageNo == 2)
+        {
+            TargetObject.gameObject.GetComponent<PlayerCtrl>().SetActiveKey(5);
         }
     }
 }

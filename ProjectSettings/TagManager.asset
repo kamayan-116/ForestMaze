@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - GoldBar
   - Goal
+  - Switch
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - Postprocess
   - NowPos
-  - 
+  - NotSkyCamera
   - 
   - 
   - 

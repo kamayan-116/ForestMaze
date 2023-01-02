@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MapCtrl : MonoBehaviour
 {
-    float time = 0.0f;
+    [SerializeField] RotatingSun rotatingSun;
+    [SerializeField] float time = 0.0f;
     [SerializeField] float TimeLimit;
 
     void OnEnable()
     {
         time = 0.0f;
+        rotatingSun.moveClock = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -23,10 +25,10 @@ public class MapCtrl : MonoBehaviour
         if(time > TimeLimit)
         {
             gameObject.SetActive(false);
+            rotatingSun.moveClock = true;
         } else
         {
             time += Time.deltaTime;
-            // Debug.Log("Maptime=" + time);
         }
     }
 }

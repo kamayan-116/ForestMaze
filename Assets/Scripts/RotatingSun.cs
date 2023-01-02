@@ -8,13 +8,14 @@ public class RotatingSun : MonoBehaviour
     [SerializeField] private float rotateSpeed = 1.0f;
     [SerializeField] private Vector3 rot = new Vector3(0f, 330f, 0f);
     [SerializeField] GameObject BackImage;
+    [SerializeField] ButtonCtrl timebuttonClick;
     public float rottmp = 0;
     public GameObject slight;
     float Intensity;
-    public bool isBack = false;
+    bool isBack = false;
     float StartBack;
     float FinishBack;
-    bool MoveClock = true;
+    public bool moveClock = true;
 
     
     // Start is called before the first frame update
@@ -28,10 +29,11 @@ public class RotatingSun : MonoBehaviour
     void Update()
     {
 
-        if(!isBack && MoveClock)
+        if(!isBack && moveClock)
         {
             rottmp += rotateSpeed * Time.deltaTime;
-        } else if(isBack && FinishBack < rottmp)
+        }
+        else if(isBack && FinishBack < rottmp)
         {
             rottmp -= rotateSpeed * Time.deltaTime * 20.0f;
             StartCoroutine("BackDes");
@@ -39,12 +41,12 @@ public class RotatingSun : MonoBehaviour
             {
                 rottmp = 0;
                 isBack = false;
-                StartCoroutine("StopClock");
+                moveClock = true;
             }
-        } else
+        }
+        else
         {
             isBack = false;
-            StartCoroutine("StopClock");
         }
 
         rottmp %= 360.0f;
@@ -75,7 +77,7 @@ public class RotatingSun : MonoBehaviour
     {
         var canvasManager = GameObject.Find("Canvas").GetComponent<NonGameCanvasCtrl>();
 
-        canvasManager.ResultPanel(1);
+        canvasManager.ResultPanel(1, HandCoinCtrl.instance.stageCoinNum, 195.0f - rottmp, HandCoinCtrl.instance.CoinNum, timebuttonClick.count + 1);
 
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
@@ -90,15 +92,6 @@ public class RotatingSun : MonoBehaviour
             FinishBack = 0;
         }
         // Debug.Log(FinishBack);
-    }
-
-    private IEnumerator StopClock()
-    {
-        MoveClock = false;
-
-        yield return new WaitForSeconds(0.5f);
-
-        MoveClock = true;
     }
 
     private IEnumerator BackDes()

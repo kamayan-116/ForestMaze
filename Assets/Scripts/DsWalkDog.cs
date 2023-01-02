@@ -8,6 +8,7 @@ public class DsWalkDog : MonoBehaviour
     [SerializeField] GameObject NowWalkDogPos;
     [SerializeField] GameObject DisButton;
     [SerializeField] MakeMaze makeMaze;
+    [SerializeField] bool isPlayerTouch = false;  // プレイヤーに捕まったか否か
     int[] dist_x = new int[5];  // 巡回xセル
     int[] dist_z = new int[5];  // 巡回yセル
     Vector2Int[] distCell = new Vector2Int[5];  //巡回セル
@@ -17,13 +18,13 @@ public class DsWalkDog : MonoBehaviour
     List<Vector2Int> pathdata = new List<Vector2Int>(); // ダイクストラ法により最短距離を入れたスタック
     Vector3 startPos; // 順路徘徊のスタート地点
     Vector3 goalPos; // 順路徘徊のゴール地点
+    float nowgoalDistance;  // ダイクストラ法による最短距離
     Vector3[] destination = new Vector3[5];  // 巡回目的地座標
     Queue<Vector3> pvec3 = new Queue<Vector3>(); // 巡回座標
     [SerializeField] private float speed;
     [SerializeField] private bool isDijkstra = true;
     private bool isPlus = false;
     private bool isDestination = false;
-    [SerializeField] bool isShit = true;
     float time = 0.0f;
     float SpanTime = 5.0f;
     int count = 0;
@@ -42,7 +43,7 @@ public class DsWalkDog : MonoBehaviour
 
             destination[i] = new Vector3(distCell[i].x * 40, 0, distCell[i].y * 40);
             makeMaze.itemCells.Remove(distCell[i]);
-            Debug.Log($"{distCell[i]}");
+            // Debug.Log($"{distCell[i]}");
         }
 
         startCell = makeMaze.walkDogStartCell;
@@ -52,6 +53,7 @@ public class DsWalkDog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isPlayerTouch) return;
         if(isDijkstra)
         {
             pathdata = new Dijkstra(makeMaze).DijkstraFinding(startCell, goalCell);
@@ -68,8 +70,9 @@ public class DsWalkDog : MonoBehaviour
         else
         {
             var nowgoalPos = pvec3.Peek();
-            
-            if(this.transform.position != nowgoalPos)
+            nowgoalDistance = Vector3.Distance(this.transform.position, nowgoalPos);
+            // Debug.Log(nowgoalDistance);
+            if(nowgoalDistance > 0.01f)
             {
                 if(this.transform.position.x < nowgoalPos.x)
                 {
@@ -88,7 +91,7 @@ public class DsWalkDog : MonoBehaviour
                     this.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 transform.position = Vector3.MoveTowards(this.transform.position, nowgoalPos, Time.deltaTime * speed);
-                Debug.Log(nowgoalPos);
+                //Debug.Log(this.transform.position + ":" + nowgoalPos);
             }
             else
             {
@@ -105,7 +108,7 @@ public class DsWalkDog : MonoBehaviour
             
             if(isDestination)
             {
-                Debug.Log($"a = {a} の時到着");
+                // Debug.Log($"a = {a} の時到着");
                 startCell = distCell[a];
                 isPlus = true;
                 if(isPlus)
@@ -125,12 +128,12 @@ public class DsWalkDog : MonoBehaviour
                 
         time += Time.deltaTime;
 
-        if (time >= SpanTime && isShit)
+        if (time >= SpanTime)
         {
             time = 0.0f;
             if(count < 3)
             {
-                Kuso[count] = Instantiate(kuso, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+                Kuso[count] = Instantiate(kuso, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
                 count++;
                 // Debug.Log($"count = {count}");
             }
@@ -147,7 +150,7 @@ public class DsWalkDog : MonoBehaviour
             Destroy(NowWalkDogPos);
 
             DisButton.GetComponent<ButtonCtrl>().DistanceCount(0);
-            isShit = false;
+            isPlayerTouch = true;
 
             foreach (var item in Kuso)
             {
