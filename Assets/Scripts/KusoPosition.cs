@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 糞を犬に対応して随時移動させるプログラム
 public class KusoPosition : MonoBehaviour
 {
     GameObject Dog;
-    [SerializeField] private float remainTime;
+    [SerializeField] private float remainTime;  // 同位置に滞在させる時間
     [SerializeField] bool continuous;
 
     // Start is called before the first frame update
@@ -15,12 +16,7 @@ public class KusoPosition : MonoBehaviour
         Dog = GameObject.Find("WalkDog");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // remainTime後、糞オブジェクトを犬の位置に移動させるコルーチン関数
     private IEnumerator TimeWait()
     {
         do

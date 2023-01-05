@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Mapの表示に関するプログラム
 public class MapCtrl : MonoBehaviour
 {
     [SerializeField] RotatingSun rotatingSun;
-    [SerializeField] float time = 0.0f;
-    [SerializeField] float TimeLimit;
+    [SerializeField] float time = 0.0f;  // Mapの表示時間
+    [SerializeField] float TimeLimit;  // Mapの最大表示時間
 
+    // Mapが表示されるごとにtimeが0に初期化と時計の動きを止める
     void OnEnable()
     {
         time = 0.0f;
         rotatingSun.moveClock = false;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

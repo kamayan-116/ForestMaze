@@ -78,7 +78,7 @@ public class WalkDog : MonoBehaviour
 
             Destroy(NowWalkDogPos);
 
-            DisButton.GetComponent<ButtonCtrl>().DistanceCount(0);
+            DisButton.GetComponent<ButtonCtrl>().ButtonHide();
             isShit = false;
 
             foreach (var item in Kuso)

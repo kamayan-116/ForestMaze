@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// コイン数の管理を行うプログラム
 public class HandCoinCtrl : MonoBehaviour
 {
     [SerializeField] private Button distanceButton;
-    [SerializeField] bool disButtonEnable;
+    [SerializeField] bool disButtonEnable;  // Distanceボタンが使えるか否か
     [SerializeField] ButtonCtrl timeCtrl;
     [SerializeField] ButtonCtrl speedCtrl;
     [SerializeField] ButtonCtrl distanceCtrl;
@@ -26,6 +27,7 @@ public class HandCoinCtrl : MonoBehaviour
     void Start()
     {
         ButtonManagement();
+        // ステージが5未満の際はDistanceボタンを使えない
         if(NonGameCanvasCtrl.Instance.stageNo < 5)
         {
             disButtonEnable = false;
@@ -41,9 +43,11 @@ public class HandCoinCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 現在のコイン数を表示
         handcoinText.text = "：" + CoinNum.ToString("D3");
     }
 
+    // コインをGetした際に呼ばれる関数
     public void GetMoney(int CoinValue)
     {
         CoinNum += CoinValue;
@@ -51,12 +55,14 @@ public class HandCoinCtrl : MonoBehaviour
         ButtonManagement();
     }
 
+    // コインを使用（ボタンをクリック）した際に呼ばれる関数
     public void UseMoney(int UseCoin)
     {
         CoinNum -= UseCoin;
         ButtonManagement();
     }
 
+    // 現在の所持コイン数に応じてボタンの表示非表示を管理する関数
     public void ButtonManagement()
     {
         switch(CoinNum){

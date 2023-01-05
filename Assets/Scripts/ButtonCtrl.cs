@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// プレイ画面の各ボタンに関するプログラム
 public class ButtonCtrl : MonoBehaviour
 {
     [SerializeField] PlayerCtrl player;
     [SerializeField] RotatingSun sun;
     [SerializeField] Button  button;
-    public int count;
-    [SerializeField] GameObject Effect;
+    public int count;  // ボタンを押せる回数
+    [SerializeField] GameObject Effect;  // 各ボタンを押した際に表示されるもの（Mapや犬との距離など）
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +18,8 @@ public class ButtonCtrl : MonoBehaviour
         button.image.color = new Color32(255, 255, 255, 100);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    #region  // 各ボタンの処理
+    // 左上のTimeBackボタンを押した際に呼ばれる関数
     public void TimeClick()
     {
         if(count > 0)
@@ -32,16 +29,14 @@ public class ButtonCtrl : MonoBehaviour
             count--;
             Effect.gameObject.SetActive(true);
             sun.SunBack(90.0f);
-            if(count == 0)
-            {
-                button.image.color = new Color32(255, 255, 255, 100);
-            }
         } else
         {
+            // ボタンの押せる回数が0になると半透明にする
             button.image.color = new Color32(255, 255, 255, 100);
         }
     }
 
+    // 右上のSpeedボタンを押した際に呼ばれる関数
     public void SpeedClick()
     {
         if(count > 0)
@@ -50,16 +45,13 @@ public class ButtonCtrl : MonoBehaviour
             HandCoinCtrl.instance.UseMoney(50);
             player.SpeedUp(3.0f);
             count--;
-            if(count == 0)
-            {
-                button.image.color = new Color32(255, 255, 255, 100);
-            }
         } else
         {
             button.image.color = new Color32(255, 255, 255, 100);
         }
     }
 
+    // 左下のDistanceボタンを押した際に呼ばれる関数
     public void DistanceClick()
     {
         if(count > 0)
@@ -73,6 +65,7 @@ public class ButtonCtrl : MonoBehaviour
         }
     }
 
+    // 右下のMapボタンを押した際に呼ばれる関数
     public void MapClick()
     {
         if(count > 0)
@@ -80,32 +73,28 @@ public class ButtonCtrl : MonoBehaviour
             ///Debug.Log("Map押された");
             HandCoinCtrl.instance.UseMoney(100);
             Effect.gameObject.SetActive(true);
-            if(count == 0)
-            {
-                button.image.color = new Color32(255, 255, 255, 100);
-            }
         } else
         {
             button.image.color = new Color32(255, 255, 255, 100);
         }
     }
+    #endregion
 
+    // ボタン有効化と表示
     public void ButtonAppear(){
-        // ボタン有効化
-        // ボタンの表示
         if(count > 0) {
             button.interactable = true;
             button.image.color = new Color32(255, 255, 255, 255);
         }
     }
 
+    // ボタン無効化と非表示
     public void ButtonHide(){
-        // ボタン無効化
-        // ボタンの非表示
         button.interactable = false;
         button.image.color = new Color32(255, 255, 255, 100);
     }
 
+    // Distanceボタンの非表示
     public void DistanceCount(int num)
     {
         count = num;

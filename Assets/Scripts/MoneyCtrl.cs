@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// コインやコインバーに関するプログラム
 public class MoneyCtrl : MonoBehaviour
 {
-    float speed = 100f;
-    bool isGet = false;
-    float lifetime = 0.5f;
+    float speed = 100f;  // コインの回転スピード
+    bool isGet = false;  // コインをゲットしたか否か
+    float lifetime = 0.5f;  // Getしてから消えるまでの時間
     GameObject HandCoinText;
-    [SerializeField] int coinValue;
-    // private bool _isRendered = false;  // カメラに表示されているか
-
+    [SerializeField] int coinValue;  // 各コインの価値
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,7 @@ public class MoneyCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Getしたら変数speedの10倍で回転し、lifetime後に消す
         if(isGet)
         {
             transform.Rotate(Vector3.up * speed * 10f * Time.deltaTime, Space.World);
@@ -43,6 +44,7 @@ public class MoneyCtrl : MonoBehaviour
         }        
     }
 
+    // コインがカメラに映っている際回転させるプログラム
     private void OnWillRenderObject()
     {
         if(Camera.current.tag == "MainCamera" && this.gameObject.tag == "Coin")
