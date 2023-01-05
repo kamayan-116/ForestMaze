@@ -10319,7 +10319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258813705}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 450, y: 900, z: 450}
+  m_LocalPosition: {x: 360, y: 750, z: 360}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15256,7 +15256,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a31a5bd01751943b5cef83ab134896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: 23
+  max: 19
+  moveMap: 0
+  isGoalSet: 0
+  goalCondition: 0
   wall: {fileID: 1310684885643474241, guid: 5cf3d075c994d5d48a75a62ecfdd1658, type: 3}
   floor: {fileID: 2087370664953482322, guid: c0dd084f39e2b1746857650d9eaa68c6, type: 3}
   start: {fileID: 3916421688345695025, guid: 272c0faabf1e8164eba2f2ecdfe3ee88, type: 3}
@@ -15271,12 +15274,10 @@ MonoBehaviour:
   - {fileID: 3203703483415254922}
   - {fileID: 919132148593060929}
   - {fileID: 1554223688670294059, guid: 57c67bd716ad2354d8e7c6f0f23b45c1, type: 3}
-  moveMap: 0
-  isGoalSet: 0
   itemCells: []
   noPassCells: []
+  stayDogCells: []
   walkDogStartCell: {x: 0, y: 0}
-  goalCondition: 0
 --- !u!4 &417291825
 Transform:
   m_ObjectHideFlags: 0
@@ -16579,6 +16580,7 @@ MonoBehaviour:
   timebuttonClick: {fileID: 1311633943}
   rottmp: 0
   slight: {fileID: 1064530674}
+  Intensity: 0
   moveClock: 1
 --- !u!1 &1068671048
 GameObject:
@@ -23912,9 +23914,9 @@ MonoBehaviour:
   NowWalkDogPos: {fileID: 3053289325656551567}
   DisButton: {fileID: 1901002771}
   makeMaze: {fileID: 417291824}
+  isPlayerTouch: 0
   speed: 15
   isDijkstra: 1
-  isShit: 1
 --- !u!4 &927757773983432382
 Transform:
   m_ObjectHideFlags: 0
@@ -24263,11 +24265,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6535613349422610139, guid: da256c178e8f5614f92cd4e6211de383, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.009182275
+      value: -0.009182267
       objectReference: {fileID: 0}
     - target: {fileID: 6535613349422610139, guid: da256c178e8f5614f92cd4e6211de383, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0010929727
+      value: -0.0010929715
       objectReference: {fileID: 0}
     - target: {fileID: 6535613349929127000, guid: da256c178e8f5614f92cd4e6211de383, type: 3}
       propertyPath: m_CullingMask.m_Bits

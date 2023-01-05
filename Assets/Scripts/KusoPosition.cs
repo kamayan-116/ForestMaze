@@ -22,7 +22,7 @@ public class KusoPosition : MonoBehaviour
         do
         {
             yield return new WaitForSeconds(remainTime);
-            transform.position = new Vector3(Dog.transform.position.x, Dog.transform.position.y + 0.5f, Dog.transform.position.z);
+            transform.position = new Vector3(Dog.transform.position.x, Dog.transform.position.y + 1f, Dog.transform.position.z);
         } while (continuous);
     }
 }
