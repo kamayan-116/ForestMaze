@@ -110,4 +110,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a79e0322dc22b4eb790288cdc8bdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDistance: 400
   coinValue: 1

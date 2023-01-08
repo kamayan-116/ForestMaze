@@ -446,7 +446,9 @@ MonoBehaviour:
   zEnable: 1
   xEnable: 1
   makeMaze: {fileID: 0}
-  Goalnumber: 0
+  timebuttonClick: {fileID: 0}
+  rotatingSun: {fileID: 0}
+  captureDog: 0
 --- !u!54 &3868015398910749441
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -524,9 +526,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3868015398178003420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 70, z: 0}
+  m_LocalScale: {x: 30.000002, y: 30.000002, z: 30.000002}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4316203444761133593}
   m_RootOrder: 2
@@ -1171,7 +1173,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535613349422610117}
-  m_LocalRotation: {x: -0.118191145, y: -0.009182343, z: -0.0010929796, w: 0.9929478}
+  m_LocalRotation: {x: -0.118191145, y: -0.009182309, z: -0.0010929755, w: 0.9929478}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1506,8 +1508,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535613349929127002}
-  m_LocalRotation: {x: -0.09512724, y: -0.009205207, z: -0.0008796935, w: 0.9954222}
-  m_LocalPosition: {x: 0, y: 2, z: -8}
+  m_LocalRotation: {x: -0.09512735, y: -0.009205151, z: -0.0008796894, w: 0.9954222}
+  m_LocalPosition: {x: -50, y: 2, z: -968}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
