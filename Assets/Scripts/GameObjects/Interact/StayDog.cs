@@ -10,6 +10,8 @@ public class StayDog : MonoBehaviour, IInteractive
 
     public void Interact()
     {
+        Debug.Log("犬当たったよ");
+        
         this.GetComponent<BoxCollider>().enabled = false;
         this.GetComponent<AudioSource>().enabled = false;
 

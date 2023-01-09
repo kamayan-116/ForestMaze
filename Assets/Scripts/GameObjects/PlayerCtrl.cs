@@ -16,8 +16,6 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] bool zEnable = true;  // z方向の動きができるか否か
     [SerializeField] bool xEnable = true;  // x方向の動きができるか否か
     [SerializeField] MakeMaze makeMaze;  // 迷路の自動生成のスクリプト
-    [SerializeField] ButtonCtrl timebuttonClick;  // TimeBackボタンのスクリプト
-    [SerializeField] RotatingSun rotatingSun;  // Lightのスクリプト
     public int captureDog = 0;  // 捕まえた犬の数
     Vector3 forwardVec;  // 前向きのVector
     Vector3 rightVec;  // 右向きのVector
@@ -106,7 +104,7 @@ public class PlayerCtrl : MonoBehaviour
             // 捕まえた犬の数がgoalConditionと同じになれば金の鍵を具現化
             if(captureDog == makeMaze.goalCondition)
             {
-                SetActiveKey(5);
+                SetActiveKey(4);
             }
         }
     }
@@ -126,14 +124,13 @@ public class PlayerCtrl : MonoBehaviour
         // Switchのタグと当たれば、銀の鍵を具現化
         if (other.gameObject.tag == "Switch")
         {
-            SetActiveKey(4);
+            SetActiveKey(3);
         }
 
         // Goalのタグと当たればNonGameSceneにシーンチェンジ
         if (other.gameObject.tag == "Goal")
         {
-            SceneManager.sceneLoaded += GameSceneLoaded;
-            SceneManager.LoadScene("NonGameScene");
+            GameManager.instance.SetGameResult(0);
         }
     }
 
@@ -141,16 +138,6 @@ public class PlayerCtrl : MonoBehaviour
     public void SetActiveKey(int childNum)
     {
         this.transform.GetChild(childNum).gameObject.SetActive(true);
-    }
-
-    // SceneChangeする際に、呼ばれる関数
-    public void GameSceneLoaded(Scene nongame, LoadSceneMode mode)
-    {
-        // シーンチェンジ先のCanvas内のNonGameCanvasCtrlスクリプトのResultPanel関数を呼ぶ
-        var canvasManager = GameObject.Find("Canvas").GetComponent<NonGameCanvasCtrl>();
-
-        canvasManager.ResultPanel(0, HandCoinCtrl.instance.stageCoinNum, 195.0f - rotatingSun.rottmp, HandCoinCtrl.instance.coinNum, timebuttonClick.count + 1);
-        SceneManager.sceneLoaded -= GameSceneLoaded;
     }
 
     // スピードアップ

@@ -14,9 +14,9 @@ public class CameraCtrl : MonoBehaviour
 
     private void Start()
     {
-        var playerGaze = new Vector3(player.transform.position.x, player.transform.position.y + height, player.transform.position.z);
-        player.transform.position = playerGaze;
-        playerPos = player.transform.position;
+        // var playerGaze = new Vector3(player.transform.position.x, player.transform.position.y + height, player.transform.position.z);
+        // player.transform.position = playerGaze;
+        // playerPos = player.transform.position;
     }
 
     private void LateUpdate()

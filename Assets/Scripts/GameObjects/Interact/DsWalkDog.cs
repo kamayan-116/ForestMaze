@@ -173,7 +173,7 @@ public class DsWalkDog : MonoBehaviour, IInteractive
 
         Destroy(nowWalkDogPos);
 
-        disButton.GetComponent<ButtonCtrl>().ButtonHide();
+        CanvasManager.instance.ButtonHide(CanvasManager.instance.buttons[0]);
         isPlayerTouch = true;
 
         foreach (var item in kuso)

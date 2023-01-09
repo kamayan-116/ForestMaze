@@ -44,7 +44,7 @@ public class NonGameCanvasCtrl : MonoBehaviour
     private void Awake()
     {
         instance = this.GetComponent<NonGameCanvasCtrl>();
-        sw = new StreamWriter(@"SaveData.csv", true, Encoding.GetEncoding("Shift_JIS"));
+        // sw = new StreamWriter(@"SaveData.csv", true, Encoding.GetEncoding("Shift_JIS"));
     }
 
     // タイトルのスタートボタンを押した

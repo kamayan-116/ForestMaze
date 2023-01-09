@@ -345,7 +345,7 @@ Transform:
   - {fileID: 4062471516036399}
   - {fileID: 4062471531490383}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &215536484 stripped
 GameObject:
@@ -5369,7 +5369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &240967041
 MonoBehaviour:
@@ -10337,7 +10337,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &296710483
 GameObject:
@@ -15646,7 +15646,7 @@ Transform:
   - {fileID: 27688485}
   - {fileID: 449567353}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &729782707 stripped
 Transform:
@@ -15704,7 +15704,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &894133724 stripped
 Transform:
@@ -15833,7 +15833,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &910320462
 MonoBehaviour:
@@ -15869,7 +15869,6 @@ GameObject:
   - component: {fileID: 915365627}
   - component: {fileID: 915365629}
   - component: {fileID: 915365628}
-  - component: {fileID: 915365630}
   m_Layer: 5
   m_Name: ClockImg
   m_TagString: Untagged
@@ -15937,21 +15936,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915365626}
   m_CullTransparentMesh: 1
---- !u!114 &915365630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 915365626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 942392ffa15c66a46afcfc274d2c446d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  longHand: {fileID: 1477524807}
-  shortHand: {fileID: 904508540}
-  rotatingSun: {fileID: 1064530677}
 --- !u!1 &974092266
 GameObject:
   m_ObjectHideFlags: 0
@@ -15964,7 +15948,6 @@ GameObject:
   - component: {fileID: 974092270}
   - component: {fileID: 974092269}
   - component: {fileID: 974092268}
-  - component: {fileID: 974092271}
   m_Layer: 5
   m_Name: MapButton
   m_TagString: Untagged
@@ -16037,8 +16020,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 974092271}
-        m_TargetAssemblyTypeName: ButtonCtrl, Assembly-CSharp
+      - m_Target: {fileID: 2095836946}
+        m_TargetAssemblyTypeName: CanvasManager, Assembly-CSharp
         m_MethodName: MapClick
         m_Mode: 1
         m_Arguments:
@@ -16087,24 +16070,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974092266}
   m_CullTransparentMesh: 1
---- !u!114 &974092271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974092266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2cf794e632e59b46a4dba40ac07b988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 702973678047028399}
-  sun: {fileID: 1064530677}
-  button: {fileID: 974092268}
-  pushableCoinNum: 100
-  count: 100
-  effect: {fileID: 1480349533}
 --- !u!1 &990056033
 GameObject:
   m_ObjectHideFlags: 0
@@ -16116,7 +16081,6 @@ GameObject:
   - component: {fileID: 990056034}
   - component: {fileID: 990056036}
   - component: {fileID: 990056035}
-  - component: {fileID: 990056037}
   m_Layer: 5
   m_Name: DogDistance
   m_TagString: Untagged
@@ -16186,22 +16150,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990056033}
   m_CullTransparentMesh: 1
---- !u!114 &990056037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 990056033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8065aae857be19f4486cdc3390c204eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 360322072797021411}
-  dog: {fileID: 919132148593060929}
-  disText: {fileID: 990056035}
-  timeLimit: 25
 --- !u!1001 &1012304183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16409,13 +16357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6485bc153c669be458bcf9fdc34ef617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 0.75
   rot: {x: 15, y: -30, z: 0}
-  backImage: {fileID: 0}
-  timebuttonClick: {fileID: 1311633943}
-  rottmp: 0
   fIntensity: 0
-  moveClock: 1
 --- !u!1 &1068671048
 GameObject:
   m_ObjectHideFlags: 0
@@ -16427,7 +16370,6 @@ GameObject:
   - component: {fileID: 1068671049}
   - component: {fileID: 1068671051}
   - component: {fileID: 1068671050}
-  - component: {fileID: 1068671052}
   m_Layer: 5
   m_Name: HandCoinText
   m_TagString: Untagged
@@ -16497,28 +16439,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068671048}
   m_CullTransparentMesh: 1
---- !u!114 &1068671052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068671048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d520cd167e8fd904583804198414c3fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distanceButton: {fileID: 1901002773}
-  disButtonEnable: 0
-  buttonCtrls:
-  - {fileID: 1901002776}
-  - {fileID: 1284257314}
-  - {fileID: 1311633943}
-  - {fileID: 974092271}
-  handcoinText: {fileID: 1068671050}
-  coinNum: 0
-  stageCoinNum: 0
 --- !u!4 &1130746853 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4440218894910572, guid: 0f1d5187cc313f542ae65b9c3d199d6f, type: 3}
@@ -16661,7 +16581,6 @@ GameObject:
   - component: {fileID: 1284257313}
   - component: {fileID: 1284257312}
   - component: {fileID: 1284257311}
-  - component: {fileID: 1284257314}
   m_Layer: 5
   m_Name: SpeedButton
   m_TagString: Untagged
@@ -16734,8 +16653,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1284257314}
-        m_TargetAssemblyTypeName: ButtonCtrl, Assembly-CSharp
+      - m_Target: {fileID: 2095836946}
+        m_TargetAssemblyTypeName: CanvasManager, Assembly-CSharp
         m_MethodName: SpeedClick
         m_Mode: 1
         m_Arguments:
@@ -16784,24 +16703,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284257309}
   m_CullTransparentMesh: 1
---- !u!114 &1284257314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284257309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2cf794e632e59b46a4dba40ac07b988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 702973678047028399}
-  sun: {fileID: 1064530677}
-  button: {fileID: 1284257311}
-  pushableCoinNum: 50
-  count: 5
-  effect: {fileID: 0}
 --- !u!1 &1311633938
 GameObject:
   m_ObjectHideFlags: 0
@@ -16814,7 +16715,6 @@ GameObject:
   - component: {fileID: 1311633942}
   - component: {fileID: 1311633941}
   - component: {fileID: 1311633940}
-  - component: {fileID: 1311633943}
   m_Layer: 5
   m_Name: TimeBackButton
   m_TagString: Untagged
@@ -16887,8 +16787,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1311633943}
-        m_TargetAssemblyTypeName: ButtonCtrl, Assembly-CSharp
+      - m_Target: {fileID: 2095836946}
+        m_TargetAssemblyTypeName: CanvasManager, Assembly-CSharp
         m_MethodName: TimeClick
         m_Mode: 1
         m_Arguments:
@@ -16937,24 +16837,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311633938}
   m_CullTransparentMesh: 1
---- !u!114 &1311633943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311633938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2cf794e632e59b46a4dba40ac07b988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 702973678047028399}
-  sun: {fileID: 1064530677}
-  button: {fileID: 1311633940}
-  pushableCoinNum: 75
-  count: 3
-  effect: {fileID: 2106269847}
 --- !u!1 &1351551759
 GameObject:
   m_ObjectHideFlags: 0
@@ -17035,6 +16917,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351551759}
   m_CullTransparentMesh: 1
+--- !u!1 &1399704144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1399704146}
+  - component: {fileID: 1399704145}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1399704145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399704144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d974b2a01e7544ca041bef7af591c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rottmp: 0
+  rotateSpeed: 0.75
+  moveClock: 1
+  coinNum: 0
+  stageCoinNum: 0
+  resultNum: 0
+  rotatingSun: {fileID: 1064530677}
+--- !u!4 &1399704146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399704144}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 357.30902, y: -197.91809, z: 50.271248}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1437253444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4440218894910572, guid: 0f1d5187cc313f542ae65b9c3d199d6f, type: 3}
@@ -17350,7 +17283,6 @@ GameObject:
   - component: {fileID: 1480349534}
   - component: {fileID: 1480349536}
   - component: {fileID: 1480349535}
-  - component: {fileID: 1480349537}
   m_Layer: 5
   m_Name: MapScreen
   m_TagString: Untagged
@@ -17413,21 +17345,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480349533}
   m_CullTransparentMesh: 1
---- !u!114 &1480349537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480349533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f2ce1335f7c5cf41b7f6ca8acfe326c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotatingSun: {fileID: 1064530677}
-  time: 0
-  timeLimit: 25
 --- !u!1001 &1548617170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18031,7 +17948,6 @@ GameObject:
   - component: {fileID: 1901002775}
   - component: {fileID: 1901002774}
   - component: {fileID: 1901002773}
-  - component: {fileID: 1901002776}
   m_Layer: 5
   m_Name: DistanceButton
   m_TagString: Untagged
@@ -18104,8 +18020,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1901002776}
-        m_TargetAssemblyTypeName: ButtonCtrl, Assembly-CSharp
+      - m_Target: {fileID: 2095836946}
+        m_TargetAssemblyTypeName: CanvasManager, Assembly-CSharp
         m_MethodName: DistanceClick
         m_Mode: 1
         m_Arguments:
@@ -18154,24 +18070,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901002771}
   m_CullTransparentMesh: 1
---- !u!114 &1901002776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901002771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2cf794e632e59b46a4dba40ac07b988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 702973678047028399}
-  sun: {fileID: 1064530677}
-  button: {fileID: 1901002773}
-  pushableCoinNum: 25
-  count: 100
-  effect: {fileID: 990056033}
 --- !u!4 &1940285740 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4440218894910572, guid: 0f1d5187cc313f542ae65b9c3d199d6f, type: 3}
@@ -18312,6 +18210,7 @@ GameObject:
   - component: {fileID: 2095836944}
   - component: {fileID: 2095836943}
   - component: {fileID: 2095836942}
+  - component: {fileID: 2095836946}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -18403,13 +18302,47 @@ RectTransform:
   - {fileID: 1480349534}
   - {fileID: 1645605897}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2095836946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095836941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b872ca86c98b1644cb10a3ccf2be1403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 360322072797021411}
+  dog: {fileID: 919132148593060929}
+  longHand: {fileID: 1477524807}
+  shortHand: {fileID: 904508540}
+  rotatingSun: {fileID: 1064530677}
+  handcoinText: {fileID: 1068671050}
+  upSpeed: 5
+  disButtonEnable: 0
+  buttons:
+  - {fileID: 1901002773}
+  - {fileID: 1284257311}
+  - {fileID: 1311633940}
+  - {fileID: 974092268}
+  pushableCoinNum: 19000000320000004b00000064000000
+  countPush: 64000000030000000300000064000000
+  timeBackObj: {fileID: 2106269847}
+  timeBackLimit: 2
+  disObj: {fileID: 990056033}
+  disText: {fileID: 990056035}
+  disTimeLimit: 25
+  mapObj: {fileID: 1480349533}
+  mapTimeLimit: 30
 --- !u!1 &2106269847
 GameObject:
   m_ObjectHideFlags: 0
@@ -47959,7 +47892,7 @@ Transform:
   - {fileID: 5033730263427841883}
   - {fileID: 5724066366808189443}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450653053662971
 Transform:
@@ -47976,7 +47909,7 @@ Transform:
   - {fileID: 5033730263728901738}
   - {fileID: 3053289325656551563}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &702973678047028396
 CharacterController:
@@ -48014,8 +47947,6 @@ MonoBehaviour:
   zEnable: 1
   xEnable: 1
   makeMaze: {fileID: 417291824}
-  timebuttonClick: {fileID: 1311633943}
-  rotatingSun: {fileID: 1064530677}
   captureDog: 0
 --- !u!1 &712100651267028811
 GameObject:
@@ -48175,7 +48106,7 @@ Transform:
   - {fileID: 6538474046149302660}
   - {fileID: 1533527282060703519}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1185812430944093818
 Transform:
@@ -48276,7 +48207,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 215536484}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 4
   m_Direction: 1
@@ -48740,7 +48671,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3203703483415254922
 GameObject:
@@ -49342,7 +49273,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1698783186}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 4
   m_Direction: 1
@@ -49565,7 +49496,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7971888207575441737
 MeshFilter:
@@ -49916,7 +49847,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8704884945017051759
 MeshFilter:

@@ -77,7 +77,7 @@ public class WalkDog : MonoBehaviour, IInteractive
 
         Destroy(nowWalkDogPos);
 
-        disButton.GetComponent<ButtonCtrl>().ButtonHide();
+        CanvasManager.instance.ButtonHide(CanvasManager.instance.buttons[0]);
         isShit = false;
 
         foreach (var item in kuso)
@@ -87,28 +87,5 @@ public class WalkDog : MonoBehaviour, IInteractive
 
         transform.parent = player.gameObject.transform;
         this.transform.localPosition = new Vector3(0.0f, 0.0f, -5.0f);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            this.GetComponent<BoxCollider>().enabled = false;
-            this.GetComponent<AudioSource>().enabled = false;
-            this.GetComponent<NavMeshAgent>().enabled = false;
-
-            Destroy(nowWalkDogPos);
-
-            disButton.GetComponent<ButtonCtrl>().ButtonHide();
-            isShit = false;
-
-            foreach (var item in kuso)
-            {
-                Destroy(item);
-            }
-
-            transform.parent = collision.gameObject.transform;
-            this.transform.localPosition = new Vector3(0.0f, 0.0f, -5.0f);
-        }
     }
 }

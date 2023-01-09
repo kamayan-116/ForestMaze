@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// ワープの移動に関するプログラム
 public class Warp : MonoBehaviour
 {
 	[SerializeField] Transform TargetObject;
@@ -24,7 +25,7 @@ public class Warp : MonoBehaviour
         // stageNo2ではワープに入るとゴールキーGet
         if(NonGameCanvasCtrl.Instance.stageNo == 2)
         {
-            TargetObject.gameObject.GetComponent<PlayerCtrl>().SetActiveKey(5);
+            TargetObject.gameObject.GetComponent<PlayerCtrl>().SetActiveKey(4);
         }
     }
 }

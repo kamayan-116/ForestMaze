@@ -64,7 +64,7 @@ public class MoneyCtrl : MonoBehaviour, IInteractive
         {
             isGet = true;
             transform.position += Vector3.up * 1.5f;
-            handCoinText.GetComponent<HandCoinCtrl>().GetMoney(coinValue);
+            GameManager.instance.GetMoney(coinValue);
         }
     }
     
