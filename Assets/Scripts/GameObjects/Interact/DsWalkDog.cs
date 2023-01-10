@@ -168,12 +168,14 @@ public class DsWalkDog : MonoBehaviour, IInteractive
 
     public void Interact()
     {
+        GameManager.instance.SetCaptureDog();
         this.GetComponent<BoxCollider>().enabled = false;
         this.GetComponent<AudioSource>().enabled = false;
 
         Destroy(nowWalkDogPos);
 
         CanvasManager.instance.ButtonHide(CanvasManager.instance.buttons[0]);
+        CanvasManager.instance.countPush[0] = 0;
         isPlayerTouch = true;
 
         foreach (var item in kuso)

@@ -3,35 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(CharacterController))]
-
 // プレイヤーに関するプログラム
 public class PlayerCtrl : MonoBehaviour
 {
-    CharacterController charCtrl;
+    Rigidbody rb;
     Animator animCtrl;
     [SerializeField] float speed = 5;  // 移動スピード
     [SerializeField] bool useCameraDir = true;  // カメラが使えるか否か
     [SerializeField] float movedirOffset = 0;
     [SerializeField] bool zEnable = true;  // z方向の動きができるか否か
     [SerializeField] bool xEnable = true;  // x方向の動きができるか否か
-    [SerializeField] MakeMaze makeMaze;  // 迷路の自動生成のスクリプト
-    public int captureDog = 0;  // 捕まえた犬の数
     Vector3 forwardVec;  // 前向きのVector
     Vector3 rightVec;  // 右向きのVector
 
     // Start is called before the first frame update
     void Start()
     {
-        charCtrl = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         animCtrl = GetComponent<Animator>();
 
         var angles = new Vector3(0, movedirOffset, 0);
         forwardVec = Quaternion.Euler(angles) * Vector3.forward;
         rightVec = Quaternion.Euler(angles) * Vector3.right;
     }
-
-    float fallpow = -2.0f;
 
     // Update is called once per frame
     void Update()
@@ -73,8 +67,8 @@ public class PlayerCtrl : MonoBehaviour
         animCtrl.SetFloat("Speed", moveDir.magnitude);
 
         // プレイヤーの移動
-        charCtrl.Move(((new Vector3(0, fallpow, 0) + (moveDir * speed)) * Time.deltaTime));
-
+        rb.velocity = moveDir * speed;
+        
         // プレイヤーの回転
         var rotdir = cameraFwdVec * yaxis + cameraRightVec * xaxis;
         if (rotdir.magnitude > 0)
@@ -96,17 +90,6 @@ public class PlayerCtrl : MonoBehaviour
         {
             //失敗してもエラーは出ない
         }
-        
-        // dogのタグと当たれば、captureDogを増やす
-        if (collision.gameObject.tag == "dog")
-        {
-            captureDog++;
-            // 捕まえた犬の数がgoalConditionと同じになれば金の鍵を具現化
-            if(captureDog == makeMaze.goalCondition)
-            {
-                SetActiveKey(4);
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,21 +103,12 @@ public class PlayerCtrl : MonoBehaviour
         {
             //失敗してもエラーは出ない
         }
-
-        // Switchのタグと当たれば、銀の鍵を具現化
-        if (other.gameObject.tag == "Switch")
-        {
-            SetActiveKey(3);
-        }
-
-        // Goalのタグと当たればNonGameSceneにシーンチェンジ
-        if (other.gameObject.tag == "Goal")
-        {
-            GameManager.instance.SetGameResult(0);
-        }
     }
 
-    // 引数の子オブジェクトを具現化する
+    /// <summary>
+    /// 引数の子オブジェクトを具現化する
+    /// </summary>
+    /// <param name="childNum">子オブジェクトの番号</param>
     public void SetActiveKey(int childNum)
     {
         this.transform.GetChild(childNum).gameObject.SetActive(true);

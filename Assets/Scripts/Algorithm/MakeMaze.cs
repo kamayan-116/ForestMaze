@@ -71,9 +71,18 @@ public class MakeMaze : MonoBehaviour
     /// </summary>
     public enum CellType {Wall, Path};
     public CellType[,] cells;
+    private int floorSize = 40;  // 床の１マスサイズ
     private Vector2Int startPos;    //穴掘り法のスタートの座標
     private Vector2Int goalPos;     //穴掘り法のゴールの座標
     #endregion
+
+    public static MakeMaze instance;
+    public static MakeMaze Instance {get => instance;}
+
+    private void Awake()
+    {
+        instance = this.GetComponent<MakeMaze>();
+    }
 
     private void Start ()
     {
@@ -267,13 +276,13 @@ public class MakeMaze : MonoBehaviour
                 //範囲外、または壁の場合に壁オブジェクトを生成する
                 if (IsOutOfBounds(i, j) || cells[i, j] == CellType.Wall)
                 {
-                    var wallObj = Instantiate(wall, new Vector3(i * 40 + wall.transform.position.x, 0, j * 40 + wall.transform.position.z), Quaternion.identity);
+                    var wallObj = Instantiate(wall, new Vector3(i * floorSize + wall.transform.position.x, 0, j * floorSize + wall.transform.position.z), Quaternion.identity);
                     wallObj.transform.parent = this.transform;
                 }
                 else
                 {
                     //通路の場所に床オブジェクトを生成
-                    var floorObj = Instantiate(floor, new Vector3(i * 40, 0, j * 40), Quaternion.identity);
+                    var floorObj = Instantiate(floor, new Vector3(i, 0, j) * floorSize, Quaternion.identity);
                     floorObj.transform.parent = this.transform;
                 }
             }
@@ -289,23 +298,23 @@ public class MakeMaze : MonoBehaviour
         // 向く方向と向く先の隣の座標を取得
         var (startdirection, startNextPos) = GetMovableDirection(startPos);
         var (goaldirection, goalNextPos) = GetMovableDirection(goalPos);
-        var startObj = Instantiate(start, new Vector3(startPos.x * 40, 0.01f, startPos.y * 40), Quaternion.Euler(0, 90 * startdirection, 0));
+        var startObj = Instantiate(start, new Vector3(startPos.x * floorSize, 0.01f, startPos.y * floorSize), Quaternion.Euler(0, 90 * startdirection, 0));
         GameObject goalObj = null;
 
         //向く方向に応じて、ゴールを回転させゴールオブジェクトをcellの中心になるように配置する
         switch(goaldirection)
         {
             case 0:
-                goalObj = Instantiate(goal, new Vector3(goalPos.x * 40 + goal.transform.position.x, 0, goalPos.y * 40 + goal.transform.position.z), Quaternion.Euler(0, 90 * goaldirection, 0));
+                goalObj = Instantiate(goal, new Vector3(goalPos.x * floorSize + goal.transform.position.x, 0, goalPos.y * floorSize + goal.transform.position.z), Quaternion.Euler(0, 90 * goaldirection, 0));
                 break;
             case 1:
-                goalObj = Instantiate(goal, new Vector3(goalPos.x * 40 + goal.transform.position.z, 0, goalPos.y * 40 - goal.transform.position.x), Quaternion.Euler(0, 90 * goaldirection, 0));
+                goalObj = Instantiate(goal, new Vector3(goalPos.x * floorSize + goal.transform.position.z, 0, goalPos.y * floorSize - goal.transform.position.x), Quaternion.Euler(0, 90 * goaldirection, 0));
                 break;
             case 2:
-                goalObj = Instantiate(goal, new Vector3(goalPos.x * 40 - goal.transform.position.x, 0, goalPos.y * 40 - goal.transform.position.z), Quaternion.Euler(0, 90 * goaldirection, 0));
+                goalObj = Instantiate(goal, new Vector3(goalPos.x * floorSize - goal.transform.position.x, 0, goalPos.y * floorSize - goal.transform.position.z), Quaternion.Euler(0, 90 * goaldirection, 0));
                 break;
             case 3:
-                goalObj = Instantiate(goal, new Vector3(goalPos.x * 40 - goal.transform.position.z, 0, goalPos.y * 40 + goal.transform.position.x), Quaternion.Euler(0, 90 * goaldirection, 0));
+                goalObj = Instantiate(goal, new Vector3(goalPos.x * floorSize - goal.transform.position.z, 0, goalPos.y * floorSize + goal.transform.position.x), Quaternion.Euler(0, 90 * goaldirection, 0));
                 break;
         }
 
@@ -350,7 +359,7 @@ public class MakeMaze : MonoBehaviour
                     activeRandom.Add(warpOutObj);
                 }
                 // ゴール前フェンスをゴール前の座標に配置し、ゴールと同じ向きにする
-                goalFence.transform.position = new Vector3(goalNextPos.x * 40, 10, goalNextPos.y * 40);
+                goalFence.transform.position = new Vector3(goalNextPos.x * floorSize, 10, goalNextPos.y * floorSize);
                 goalFence.transform.rotation = goalObj.transform.rotation;
                 break;
             #endregion
@@ -374,31 +383,31 @@ public class MakeMaze : MonoBehaviour
                     activeRandom.Add(warpOutChild[i]);
                 }
                 // ゴール前フェンスをゴール前の座標に配置し、ゴールと同じ向きにする
-                goalFence.transform.position = new Vector3(goalNextPos.x * 40, 10, goalNextPos.y * 40);
+                goalFence.transform.position = new Vector3(goalNextPos.x * floorSize, 10, goalNextPos.y * floorSize);
                 goalFence.transform.rotation = goalObj.transform.rotation;
                 // stayDogCellsのリストから１つ場所を取得し、その隣の道の座標と向きを取得
                 var warpPos = SetObjectPosition(stayDogCells);
                 var (warpdirection, warpNextPos) = GetMovableDirection(warpPos);
                 // 止まる犬に対応したワープの出口を配置
-                warpOut.transform.GetChild(10).transform.position = new Vector3(warpPos.x * 40, 0, warpPos.y * 40);
+                warpOut.transform.GetChild(10).transform.position = new Vector3(warpPos.x, 0, warpPos.y ) * floorSize;
                 // 止まる犬を方向に応じて配置
                 switch(warpdirection)
                 {
                     case 0:
-                        stayDog.transform.position = new Vector3(warpNextPos.x * 40, 0, (warpNextPos.y - 1) * 40);
+                        stayDog.transform.position = new Vector3(warpNextPos.x * floorSize, 0, (warpNextPos.y - 1) * floorSize);
                         // 止まる犬を配置した場所を他の仕掛けと被らないようitemCellsから除外
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y - 1));
                         break;
                     case 1:
-                        stayDog.transform.position = new Vector3((warpNextPos.x - 1) * 40, 0, warpNextPos.y * 40);
+                        stayDog.transform.position = new Vector3((warpNextPos.x - 1) * floorSize, 0, warpNextPos.y * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x - 1, warpNextPos.y));
                         break;
                     case 2:
-                        stayDog.transform.position = new Vector3(warpNextPos.x * 40, 0, (warpNextPos.y + 1) * 40);
+                        stayDog.transform.position = new Vector3(warpNextPos.x * floorSize, 0, (warpNextPos.y + 1) * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y + 1));
                         break;
                     case 3:
-                        stayDog.transform.position = new Vector3((warpNextPos.x + 1) * 40, 0, warpNextPos.y * 40);
+                        stayDog.transform.position = new Vector3((warpNextPos.x + 1) * floorSize, 0, warpNextPos.y * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x + 1, warpNextPos.y));
                         break;
                 }
@@ -430,38 +439,38 @@ public class MakeMaze : MonoBehaviour
                     activeRandom.Add(warpOutChild[i]);
                 }
                 // ゴール前フェンスをゴール前の座標に配置し、ゴールと同じ向きにする
-                goalFence.transform.position = new Vector3(goalNextPos.x * 40, 10, goalNextPos.y * 40);
+                goalFence.transform.position = new Vector3(goalNextPos.x * floorSize, 10, goalNextPos.y * floorSize);
                 goalFence.transform.rotation = goalObj.transform.rotation;
                 // stayDogCellsのリストから１つ場所を取得し、その隣の道の座標と向きを取得
                 warpPos = SetObjectPosition(stayDogCells);
                 (warpdirection, warpNextPos) = GetMovableDirection(warpPos);
                 // 止まる犬に対応したワープの出口を配置
-                warpOut.transform.GetChild(10).transform.position = new Vector3(warpPos.x * 40, 0, warpPos.y * 40);
+                warpOut.transform.GetChild(10).transform.position = new Vector3(warpPos.x, 0, warpPos.y) * floorSize;
                 // 止まる犬と犬のフェンスを方向に応じて配置
                 switch(warpdirection)
                 {
                     case 0:
-                        stayDog.transform.position = new Vector3(warpNextPos.x * 40, 0, (warpNextPos.y - 1) * 40);
-                        dogFence.transform.position = new Vector3(warpNextPos.x * 40, 10, (warpNextPos.y - 2) * 40);
+                        stayDog.transform.position = new Vector3(warpNextPos.x * floorSize, 0, (warpNextPos.y - 1) * floorSize);
+                        dogFence.transform.position = new Vector3(warpNextPos.x * floorSize, 10, (warpNextPos.y - 2) * floorSize);
                         // 止まる犬と犬のフェンスを配置した場所を他の仕掛けと被らないようitemCellsから除外
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y - 1));
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y - 2));
                         break;
                     case 1:
-                        stayDog.transform.position = new Vector3((warpNextPos.x - 1) * 40, 0, warpNextPos.y * 40);
-                        dogFence.transform.position = new Vector3((warpNextPos.x - 2) * 40, 10, warpNextPos.y * 40);
+                        stayDog.transform.position = new Vector3((warpNextPos.x - 1) * floorSize, 0, warpNextPos.y * floorSize);
+                        dogFence.transform.position = new Vector3((warpNextPos.x - 2) * floorSize, 10, warpNextPos.y * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x - 1, warpNextPos.y));
                         itemCells.Remove(new Vector2Int(warpNextPos.x - 2, warpNextPos.y));
                         break;
                     case 2:
-                        stayDog.transform.position = new Vector3(warpNextPos.x * 40, 0, (warpNextPos.y + 1) * 40);
-                        dogFence.transform.position = new Vector3(warpNextPos.x * 40, 10, (warpNextPos.y + 2) * 40);
+                        stayDog.transform.position = new Vector3(warpNextPos.x * floorSize, 0, (warpNextPos.y + 1) * floorSize);
+                        dogFence.transform.position = new Vector3(warpNextPos.x * floorSize, 10, (warpNextPos.y + 2) * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y + 1));
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y + 2));
                         break;
                     case 3:
-                        stayDog.transform.position = new Vector3((warpNextPos.x + 1) * 40, 0, warpNextPos.y * 40);
-                        dogFence.transform.position = new Vector3((warpNextPos.x + 2) * 40, 10, warpNextPos.y * 40);
+                        stayDog.transform.position = new Vector3((warpNextPos.x + 1) * floorSize, 0, warpNextPos.y * floorSize);
+                        dogFence.transform.position = new Vector3((warpNextPos.x + 2) * floorSize, 10, warpNextPos.y * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x + 1, warpNextPos.y));
                         itemCells.Remove(new Vector2Int(warpNextPos.x + 2, warpNextPos.y));
                         break;
@@ -470,7 +479,7 @@ public class MakeMaze : MonoBehaviour
                 stayDog.transform.rotation = Quaternion.Euler(0, 90 * (warpdirection+2), 0);
                 dogFence.transform.rotation = Quaternion.Euler(0, 90 * warpdirection, 0);
                 // スイッチを方向に応じて配置し、向きを変更
-                switchObj.transform.position = new Vector3(warpNextPos.x * 40, 0.5f, warpNextPos.y * 40);
+                switchObj.transform.position = new Vector3(warpNextPos.x * floorSize, 0.5f, warpNextPos.y * floorSize);
                 switchObj.transform.rotation = Quaternion.Euler(0, 90 * warpdirection, 0);
                 // 止まる犬に対応したワープの出口とその隣の座標の場所をitemCellsから除外
                 itemCells.Remove(warpPos);
@@ -501,38 +510,38 @@ public class MakeMaze : MonoBehaviour
                     activeRandom.Add(warpOutChild[i]);
                 }
                 // ゴール前フェンスをゴール前の座標に配置し、ゴールと同じ向きにする
-                goalFence.transform.position = new Vector3(goalNextPos.x * 40, 10, goalNextPos.y * 40);
+                goalFence.transform.position = new Vector3(goalNextPos.x * floorSize, 10, goalNextPos.y * floorSize);
                 goalFence.transform.rotation = goalObj.transform.rotation;
                 // stayDogCellsのリストから１つ場所を取得し、その隣の道の座標と向きを取得
                 warpPos = SetObjectPosition(stayDogCells);
                 (warpdirection, warpNextPos) = GetMovableDirection(warpPos);
                 // 止まる犬に対応したワープの出口を配置
-                warpOut.transform.GetChild(10).transform.position = new Vector3(warpPos.x * 40, 0, warpPos.y * 40);
+                warpOut.transform.GetChild(10).transform.position = new Vector3(warpPos.x, 0, warpPos.y)  * floorSize;
                 // 止まる犬と犬のフェンスを方向に応じて配置
                 switch(warpdirection)
                 {
                     case 0:
-                        stayDog.transform.position = new Vector3(warpNextPos.x * 40, 0, (warpNextPos.y - 1) * 40);
-                        dogFence.transform.position = new Vector3(warpNextPos.x * 40, 10, (warpNextPos.y - 2) * 40);
+                        stayDog.transform.position = new Vector3(warpNextPos.x * floorSize, 0, (warpNextPos.y - 1) * floorSize);
+                        dogFence.transform.position = new Vector3(warpNextPos.x * floorSize, 10, (warpNextPos.y - 2) * floorSize);
                         // 止まる犬と犬のフェンスを配置した場所を他の仕掛けと被らないようitemCellsから除外
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y - 1));
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y - 2));
                         break;
                     case 1:
-                        stayDog.transform.position = new Vector3((warpNextPos.x - 1) * 40, 0, warpNextPos.y * 40);
-                        dogFence.transform.position = new Vector3((warpNextPos.x - 2) * 40, 10, warpNextPos.y * 40);
+                        stayDog.transform.position = new Vector3((warpNextPos.x - 1) * floorSize, 0, warpNextPos.y * floorSize);
+                        dogFence.transform.position = new Vector3((warpNextPos.x - 2) * floorSize, 10, warpNextPos.y * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x - 1, warpNextPos.y));
                         itemCells.Remove(new Vector2Int(warpNextPos.x - 2, warpNextPos.y));
                         break;
                     case 2:
-                        stayDog.transform.position = new Vector3(warpNextPos.x * 40, 0, (warpNextPos.y + 1) * 40);
-                        dogFence.transform.position = new Vector3(warpNextPos.x * 40, 10, (warpNextPos.y + 2) * 40);
+                        stayDog.transform.position = new Vector3(warpNextPos.x * floorSize, 0, (warpNextPos.y + 1) * floorSize);
+                        dogFence.transform.position = new Vector3(warpNextPos.x * floorSize, 10, (warpNextPos.y + 2) * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y + 1));
                         itemCells.Remove(new Vector2Int(warpNextPos.x, warpNextPos.y + 2));
                         break;
                     case 3:
-                        stayDog.transform.position = new Vector3((warpNextPos.x + 1) * 40, 0, warpNextPos.y * 40);
-                        dogFence.transform.position = new Vector3((warpNextPos.x + 2) * 40, 10, warpNextPos.y * 40);
+                        stayDog.transform.position = new Vector3((warpNextPos.x + 1) * floorSize, 0, warpNextPos.y * floorSize);
+                        dogFence.transform.position = new Vector3((warpNextPos.x + 2) * floorSize, 10, warpNextPos.y * floorSize);
                         itemCells.Remove(new Vector2Int(warpNextPos.x + 1, warpNextPos.y));
                         itemCells.Remove(new Vector2Int(warpNextPos.x + 2, warpNextPos.y));
                         break;
@@ -541,14 +550,14 @@ public class MakeMaze : MonoBehaviour
                 stayDog.transform.rotation = Quaternion.Euler(0, 90 * (warpdirection+2), 0);
                 dogFence.transform.rotation = Quaternion.Euler(0, 90 * warpdirection, 0);
                 // スイッチを方向に応じて配置し、向きを変更
-                switchObj.transform.position = new Vector3(warpNextPos.x * 40, 0.5f, warpNextPos.y * 40);
+                switchObj.transform.position = new Vector3(warpNextPos.x * floorSize, 0.5f, warpNextPos.y * floorSize);
                 switchObj.transform.rotation = Quaternion.Euler(0, 90 * warpdirection, 0);
                 // 止まる犬に対応したワープの出口とその隣の座標の場所をitemCellsから除外
                 itemCells.Remove(warpPos);
                 itemCells.Remove(warpNextPos);
                 // itemCellsのリストから１つ場所を取得し、walkDogStartCellに代入後その場所に歩く犬を配置
                 walkDogStartCell = SetObjectPosition(itemCells);
-                walkDog.transform.position = new Vector3(walkDogStartCell.x * 40, 0f, walkDogStartCell.y * 40);
+                walkDog.transform.position = new Vector3(walkDogStartCell.x * floorSize, 0f, walkDogStartCell.y * floorSize);
                 // walkDogStartCellの場所をitemCellsから除外
                 itemCells.Remove(walkDogStartCell);
                 break;
@@ -559,7 +568,7 @@ public class MakeMaze : MonoBehaviour
         foreach(GameObject item in activeRandom)
         {
             var itemPos = SetObjectPosition(itemCells);
-            item.transform.position = new Vector3(itemPos.x * 40, 0, itemPos.y * 40);
+            item.transform.position = new Vector3(itemPos.x, 0, itemPos.y)  * floorSize;
             itemCells.Remove(itemPos);
         }
 
@@ -567,7 +576,7 @@ public class MakeMaze : MonoBehaviour
         foreach(var noPass in noPassCells)
         {
             var (noPassdirection, noPassNextPos) = GetMovableDirection(noPass);
-            var coinBar = Instantiate(goldBar, new Vector3(noPass.x * 40, 0.6f, noPass.y * 40), Quaternion.Euler(0, 90 * noPassdirection, 0));
+            var coinBar = Instantiate(goldBar, new Vector3(noPass.x * floorSize, 0.6f, noPass.y * floorSize), Quaternion.Euler(0, 90 * noPassdirection, 0));
             coinBar.transform.parent = this.transform;
         }
     }

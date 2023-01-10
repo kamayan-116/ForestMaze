@@ -23,7 +23,12 @@ public class GameManager : MonoBehaviour
     /// ステージの合計獲得コイン数
     /// </summary>
     public int stageCoinNum = 0;
+    /// <summary>
+    /// 捕まえた犬の数
+    /// </summary>
+    public int captureDog = 0;
     [SerializeField] int resultNum;  // ゲーム結果の番号（0はクリア,1はGameOver）
+    [SerializeField] PlayerCtrl playerCtrl;  // プレイヤーのスクリプト
     [SerializeField] RotatingSun rotatingSun;  // Lightのスクリプト
 
     public static GameManager instance;
@@ -84,6 +89,19 @@ public class GameManager : MonoBehaviour
         if(finishBack <= 0)
         {
             finishBack = 0;
+        }
+    }
+
+    /// <summary>
+    /// 捕まえた犬の数を増やす関数
+    /// </summary>
+    public void SetCaptureDog()
+    {
+        captureDog++;
+        // 捕まえた犬の数がgoalConditionと同じになれば金の鍵を具現化
+        if(captureDog >= MakeMaze.instance.goalCondition)
+        {
+            playerCtrl.SetActiveKey(4);
         }
     }
 

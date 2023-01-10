@@ -63,6 +63,7 @@ public class MoneyCtrl : MonoBehaviour, IInteractive
         if(!isGet)
         {
             isGet = true;
+            this.GetComponent<SphereCollider>().enabled = false;
             transform.position += Vector3.up * 1.5f;
             GameManager.instance.GetMoney(coinValue);
         }

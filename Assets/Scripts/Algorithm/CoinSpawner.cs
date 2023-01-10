@@ -5,7 +5,6 @@ using UnityEngine;
 // ゲーム内にコインを自動生成するプログラム
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField] private MakeMaze makeMaze;
     [SerializeField] private GameObject coinPrefab;  // コイン
     [SerializeField] float placementInterval = 10.0f;  // コインを設置する間隔
     [SerializeField] float coinPositionY = 1.0f;  // コイン自体のサイズ（サイズ分上に生成する）
@@ -30,7 +29,7 @@ public class CoinSpawner : MonoBehaviour
     void GetFloorSize()
     {
         MeshRenderer floorRenderer = floorObj.GetComponent<MeshRenderer>();
-        floorSize = new Vector3(floorRenderer.bounds.size.x * makeMaze.max, floorRenderer.bounds.size.y, floorRenderer.bounds.size.z * makeMaze.max);
+        floorSize = new Vector3(floorRenderer.bounds.size.x * MakeMaze.instance.max, floorRenderer.bounds.size.y, floorRenderer.bounds.size.z * MakeMaze.instance.max);
     }
 
     // コインの生成場所の決定

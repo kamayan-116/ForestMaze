@@ -14,10 +14,8 @@ public class CanvasManager : MonoBehaviour
     float distance;  //　プレイヤーと歩く犬との距離
     [SerializeField] GameObject longHand;  // 長針
     [SerializeField] GameObject shortHand;  // 短針
-    [SerializeField] RotatingSun rotatingSun;
     [SerializeField] Text handcoinText;  // コインの枚数を表示するテキスト
     [SerializeField] float upSpeed;  // プレイヤーの1回あたりのアップするスピード
-    [SerializeField] bool disButtonEnable;  // Distanceボタンが使えるか否か
     /// <summary>
     /// 各ボタンを入れた配列(Dis,Speed,Time,Map)
     /// </summary>
@@ -51,14 +49,12 @@ public class CanvasManager : MonoBehaviour
         // ステージが5未満の際はDistanceボタンを使えない
         if(NonGameCanvasCtrl.Instance.stageNo < 5)
         {
-            disButtonEnable = false;
-            buttons[0].image.color = new Color32(255, 255, 255, 100);
+            countPush[0] = 0;
         }
         else
         {
-            disButtonEnable = true;
+            countPush[0] = 1;
         }
-        buttons[0].interactable = disButtonEnable;
 
         foreach(Button button in buttons)
         {
