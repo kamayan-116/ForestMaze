@@ -65,23 +65,23 @@ public class NonGameCanvasManager: MonoBehaviour
         
         for(int i = 0; i <= stageButton.GetUpperBound(0); i++)
         {
-            // bool buttonEnable;  // ボタンが使えるか否か
+            bool buttonEnable;  // ボタンが使えるか否か
 
-            // // 現在のクリアステージより1つ大きな数字までしかボタンの有効化を行わないようにする
-            // if(clearStageNo < i)
-            // {
-            //     buttonEnable = false;
-            //     // 無効化の場合画像を鍵の画像にする
-            //     stageButton[i].GetComponent<Image>().sprite = stageButtonImage[1];
-            // }
-            // else
-            // {
-            //     buttonEnable = true;
-            //     stageButton[i].GetComponent<Image>().sprite = stageButtonImage[0];
-            // }
+            // 現在のクリアステージより1つ大きな数字までしかボタンの有効化を行わないようにする
+            if(clearStageNo < i)
+            {
+                buttonEnable = false;
+                // 無効化の場合画像を鍵の画像にする
+                stageButton[i].GetComponent<Image>().sprite = stageButtonImage[1];
+            }
+            else
+            {
+                buttonEnable = true;
+                stageButton[i].GetComponent<Image>().sprite = stageButtonImage[0];
+            }
 
-            // // ボタンの有効化
-            // stageButton[i].GetComponent<Button>().interactable = buttonEnable;
+            // ボタンの有効化
+            stageButton[i].GetComponent<Button>().interactable = buttonEnable;
         }
 
         // ステージ5までクリアし、累計獲得コインが1200を超えるとステージ6を有効化
