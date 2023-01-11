@@ -163,7 +163,10 @@ public class GameManager : MonoBehaviour
         CanvasManager.instance.ButtonManagement(coinNum);
     }
 
-    // ゲーム結果に応じてシーンチェンジする関数
+    /// <summary>
+    /// ゲーム結果に応じてシーンチェンジする関数
+    /// </summary>
+    /// <param name="_result">ゲームの結果の番号</param>
     public void SetGameResult(int _result)
     {
         resultNum = _result;

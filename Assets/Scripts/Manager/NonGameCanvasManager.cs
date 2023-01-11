@@ -105,16 +105,17 @@ public class NonGameCanvasManager: MonoBehaviour
         // ステージセレクトUIを非表示にし、ルールUIを表示
         stageSelectPanel.SetActive(false);
         rulePanel.SetActive(true);
+        // ステージレベルに応じてルールのテキストを変更
         switch(stageNo)
         {
             case <= 2:
-                ruleText.text = "翌朝７時までに小屋に迎え";
+                ruleText.text = "翌朝７時までに\n小屋に向かえ";
                 break;
             case <= 4:
-                ruleText.text = "翌朝７時までに迷子の犬を１匹見つけて小屋に預けろ";
+                ruleText.text = "翌朝７時までに\n迷子の犬を\n１匹見つけて\n小屋に預けろ";
                 break;
             case <= 6:
-                ruleText.text = "翌朝７時までに迷子の犬を２匹見つけて小屋に預けろ";
+                ruleText.text = "翌朝７時までに\n迷子の犬を\n２匹見つけて\n小屋に預けろ";
                 break;
         }
     }
@@ -137,6 +138,7 @@ public class NonGameCanvasManager: MonoBehaviour
     /// <param name="_timePush">TimeBackボタン残り回数</param>
     public void ResultPanel(int  _result, int _getCoinNum, float _clearTime, int _remaingCoin, int _timePush)
     {
+        Cursor.visible = true;
         // タイトルUIを非表示にし、結果UIを表示
         titlePanel.SetActive(false);
         resultPanel.SetActive(true);
