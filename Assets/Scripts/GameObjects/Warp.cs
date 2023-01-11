@@ -23,7 +23,7 @@ public class Warp : MonoBehaviour
         }
 
         // stageNo2ではワープに入るとゴールキーGet
-        if(NonGameCanvasCtrl.Instance.stageNo == 2)
+        if(NonGameCanvasManager.Instance.stageNo == 2)
         {
             TargetObject.gameObject.GetComponent<PlayerCtrl>().SetActiveKey(4);
         }

@@ -327,7 +327,7 @@ public class MakeMaze : MonoBehaviour
 
         //ステージ難易度に応じてオブジェクトの出現を調整
         var activeRandom = new List<GameObject>();  // ランダムな場所に配置されるオブジェクトリスト
-        switch(NonGameCanvasCtrl.Instance.stageNo)
+        switch(NonGameCanvasManager.Instance.stageNo)
         {
             #region // stageNo = 1
             case 1:

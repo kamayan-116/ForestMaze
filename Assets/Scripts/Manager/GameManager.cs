@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 // Gameの進行管理プログラム
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// プレイヤーのカメラが操作できるか否か
+    /// </summary>
+    public bool isPlayerOpe;  //  trueはPlayer操作、falseはマウス操作
     public float rottmp = 0;  // ゲームの経過時間
     [SerializeField] private float rotateSpeed = 1.0f;  // 回転スピード
     bool isBack = false;  // ライトが戻るか否か(TimeBack)
@@ -28,6 +33,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public int captureDog = 0;
     [SerializeField] int resultNum;  // ゲーム結果の番号（0はクリア,1はGameOver）
+    [SerializeField] CinemachineBrain mainCinema;
     [SerializeField] PlayerCtrl playerCtrl;  // プレイヤーのスクリプト
     [SerializeField] RotatingSun rotatingSun;  // Lightのスクリプト
 
@@ -48,6 +54,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Eキーを押すとSwitch関数の実行
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Switch();
+        }
+
+        // プレイ状況に応じた使用状況の変化
+        SetCinema();
+        SetCursor();
+
+        // ゲーム時間の進行
         if(!isBack && moveClock)
         {
             rottmp += rotateSpeed * Time.deltaTime;
@@ -75,6 +92,24 @@ public class GameManager : MonoBehaviour
         {
             GameManager.instance.SetGameResult(1);
         }
+    }
+
+    // プレイヤーとマウスの操作の変更を行う関数
+    private void Switch()
+    {
+        isPlayerOpe = !isPlayerOpe;
+    }
+
+    // CinemaChineの使用可否
+    private void SetCinema()
+    {
+        mainCinema.enabled = isPlayerOpe;
+    }
+
+    // マウスカーソルの有無
+    private void SetCursor()
+    {
+        Cursor.visible = !isPlayerOpe;
     }
 
     /// <summary>
@@ -140,7 +175,7 @@ public class GameManager : MonoBehaviour
     public void GameSceneLoaded(Scene nongame, LoadSceneMode mode)
     {
         // シーンチェンジ先のCanvas内のNonGameCanvasCtrlスクリプトのResultPanel関数を呼ぶ
-        var canvasManager = GameObject.Find("Canvas").GetComponent<NonGameCanvasCtrl>();
+        var canvasManager = GameObject.Find("Canvas").GetComponent<NonGameCanvasManager>();
 
         canvasManager.ResultPanel(resultNum, GameManager.instance.stageCoinNum, 195.0f - rottmp, GameManager.instance.coinNum, CanvasManager.instance.countPush[2] + 1);
         SceneManager.sceneLoaded -= GameSceneLoaded;

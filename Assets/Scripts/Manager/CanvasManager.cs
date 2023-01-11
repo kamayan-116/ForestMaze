@@ -47,7 +47,7 @@ public class CanvasManager : MonoBehaviour
     {
         ButtonManagement(GameManager.instance.coinNum);
         // ステージが5未満の際はDistanceボタンを使えない
-        if(NonGameCanvasCtrl.Instance.stageNo < 5)
+        if(NonGameCanvasManager.Instance.stageNo < 5)
         {
             countPush[0] = 0;
         }

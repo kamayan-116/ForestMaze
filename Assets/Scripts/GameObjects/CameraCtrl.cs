@@ -5,18 +5,16 @@ using UnityEngine;
 public class CameraCtrl : MonoBehaviour
 {
     [SerializeField] GameObject player;  // プレイヤーオブジェクト
-    [SerializeField] Vector3 playerPos;
-    [SerializeField] float height;  // プレイヤーの目線分の高さ
-    public Vector3 camDir = new Vector3( 0, 10, -15 );  // カメラの方向
-    public Vector3 lookPos = new Vector3( 0, 1.5f, 0 );  // 注視点の高さ
-    public float nearest = 2.5f;  // 撮影の最短距離
+    // [SerializeField] Vector3 playerPos;
+    // [SerializeField] float height = 2;  // プレイヤーの目線分の高さ
+    public Vector3 camDir = new Vector3(0, 4, -8);  // カメラの方向
+    public Vector3 lookPos = new Vector3(0, 2f, 0);  // 注視点の高さ
+    public float nearest = 8f;  // 撮影の最短距離
     [SerializeField] float moveSpeed = 2f;  // カメラの移動スピード
 
     private void Start()
     {
-        // var playerGaze = new Vector3(player.transform.position.x, player.transform.position.y + height, player.transform.position.z);
-        // player.transform.position = playerGaze;
-        // playerPos = player.transform.position;
+        
     }
 
     private void LateUpdate()

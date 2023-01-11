@@ -30,6 +30,7 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!GameManager.instance.isPlayerOpe) return;
 
         // プレイヤーの入力キー
         float xaxis = Input.GetAxis("Horizontal");

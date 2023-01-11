@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.IO;
-using System.Text;
 
 // NonGameSceneのUI管理プログラム
-public class NonGameCanvasCtrl : MonoBehaviour
+public class NonGameCanvasManager: MonoBehaviour
 {
     #region 
     [SerializeField] Camera mainCamera;  // カメラオブジェクト
@@ -36,15 +34,13 @@ public class NonGameCanvasCtrl : MonoBehaviour
     private int score = 0;  // 現在のステージでのスコア
     private int highScore;  // 現在のステージでのハイスコア
     private int[] stageHiScore;  // 各ステージでのハイスコア
-    private StreamWriter sw;
 
-    public static NonGameCanvasCtrl instance;
-    public static NonGameCanvasCtrl Instance {get => instance;}
+    public static NonGameCanvasManager instance;
+    public static NonGameCanvasManager Instance {get => instance;}
 
     private void Awake()
     {
-        instance = this.GetComponent<NonGameCanvasCtrl>();
-        // sw = new StreamWriter(@"SaveData.csv", true, Encoding.GetEncoding("Shift_JIS"));
+        instance = this.GetComponent<NonGameCanvasManager>();
     }
 
     // タイトルのスタートボタンを押した
@@ -211,28 +207,4 @@ public class NonGameCanvasCtrl : MonoBehaviour
         mainCamera.backgroundColor = new Color32(67, 164, 87, 255);
         AblePushStageSelect();
     }
-
-    // private void ReadCSV ()
-    // {
-    //     var csv = Resources.Load<TextAsset> ("SaveData").text;
-    //     var sr = new StringReader (csv);
-    //     sr.Peek ();
-    //     while (sr.Peek () != -1) {
-    //         var elms = sr.ReadLine ().Split (',');
-    //         stageNo = int.Parse (elms[0]);
-    //         clearStageNo = int.Parse (elms[1]);
-    //         totalGetCoinNum = int.Parse (elms[2]);
-    //         for(int i=0; i<stageHiScore.Length; i++)
-    //         {
-    //             stageHiScore[i] = int.Parse (elms[i+3]);
-    //         }
-    //     }
-    // }
-
-    // private void SaveData(string saveName, string saveNum, int saveLine)
-    // {
-    //     string[] s1 = {saveName, saveNum};
-    //     string s2 = string.Join(",", s1);
-    //     sw.WriteLine(s2);
-    // }
 }
