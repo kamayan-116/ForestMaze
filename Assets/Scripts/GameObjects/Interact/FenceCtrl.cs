@@ -10,8 +10,6 @@ public class FenceCtrl : MonoBehaviour, IInteractive
     // 対応するKeyが表示される時に当たった際FenceとKeyを非表示にする
     public void Interact()
     {
-        Debug.Log("当たったよ");
-        
         if (keyObj.activeSelf)
         {
             this.gameObject.SetActive(false);

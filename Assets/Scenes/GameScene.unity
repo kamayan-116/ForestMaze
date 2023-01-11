@@ -1536,7 +1536,7 @@ MonoBehaviour:
   stageCoinNum: 0
   captureDog: 0
   resultNum: 0
-  playerCtrl: {fileID: 0}
+  playerCtrl: {fileID: 6375740522499064669}
   rotatingSun: {fileID: 1064530677}
 --- !u!4 &1399704146
 Transform:
@@ -1546,7 +1546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399704144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 357.30902, y: -197.91809, z: 50.271248}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2124,10 +2124,8 @@ MonoBehaviour:
   dog: {fileID: 919132148593060929}
   longHand: {fileID: 1477524807}
   shortHand: {fileID: 904508540}
-  rotatingSun: {fileID: 1064530677}
   handcoinText: {fileID: 1068671050}
   upSpeed: 5
-  disButtonEnable: 0
   buttons:
   - {fileID: 1901002773}
   - {fileID: 1284257311}
