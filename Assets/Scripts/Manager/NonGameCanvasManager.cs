@@ -193,7 +193,7 @@ public class NonGameCanvasManager: MonoBehaviour
         //　各テキストを更新して表示
         resultCoinText.text = "：" + stageGetCoinNum.ToString("D3") + "枚";
         scoreText.text = "Score：" + score.ToString("D5");
-        highScoreText.text = "HighScore：" + highScore.ToString("D5");
+        highScoreText.text = "Stage" + stageNo + " HighScore：" + highScore.ToString("D5");
         stageCoinText.text = "：" + totalGetCoinNum.ToString("D3") + "枚";
 
         // Debug.Log("total：" + totalGetCoinNum);
