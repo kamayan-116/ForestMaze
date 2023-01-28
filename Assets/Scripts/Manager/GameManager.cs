@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
     /// プレイヤーのカメラが操作できるか否か
     /// </summary>
     public bool isPlayerOpe;  //  trueはPlayer操作、falseはマウス操作
-    public float rottmp = 0;  // ゲームの経過時間
-    [SerializeField] private float rotateSpeed = 1.0f;  // 回転スピード
-    bool isBack = false;  // ライトが戻るか否か(TimeBack)
-    float startBack;  // 戻る際の初期時間
-    float finishBack; // 戻る際の終了時間
+    public float playTime = 0;  // ゲームの経過時間
+    [SerializeField] private float playSpeed = 1.0f;  // プレイスピード
+    private bool isBack = false;  // ライトが戻るか否か(TimeBack)
+    private float startBack;  // 戻る際の初期時間
+    private float finishBack; // 戻る際の終了時間
     /// <summary>
     /// Map表示時はfalseで時間停止
     /// </summary>
@@ -32,10 +32,10 @@ public class GameManager : MonoBehaviour
     /// 捕まえた犬の数
     /// </summary>
     public int captureDog = 0;
-    [SerializeField] int resultNum;  // ゲーム結果の番号（0はクリア,1はGameOver）
-    [SerializeField] CinemachineBrain mainCinema;
-    [SerializeField] PlayerCtrl playerCtrl;  // プレイヤーのスクリプト
-    [SerializeField] RotatingSun rotatingSun;  // Lightのスクリプト
+    [SerializeField] private int resultNum;  // ゲーム結果の番号（0はクリア,1はGameOver）
+    [SerializeField] private CinemachineBrain mainCinema;
+    [SerializeField] private PlayerCtrl playerCtrl;  // プレイヤーのスクリプト
+    [SerializeField] private RotatingSun rotatingSun;  // Lightのスクリプト
 
     public static GameManager instance;
     public static GameManager Instance {get => instance;}
@@ -67,14 +67,14 @@ public class GameManager : MonoBehaviour
         // ゲーム時間の進行
         if(!isBack && moveClock)
         {
-            rottmp += rotateSpeed * Time.deltaTime;
+            playTime += playSpeed * Time.deltaTime;
         }
-        else if(isBack && finishBack < rottmp)
+        else if(isBack && finishBack < playTime)
         {
-            rottmp -= rotateSpeed * Time.deltaTime * 20.0f;
-            if(rottmp <= 0)
+            playTime -= playSpeed * Time.deltaTime * 20.0f;
+            if(playTime <= 0)
             {
-                rottmp = 0;
+                playTime = 0;
                 isBack = false;
                 moveClock = true;
             }
@@ -83,14 +83,13 @@ public class GameManager : MonoBehaviour
         {
             isBack = false;
         }
+        
+        rotatingSun.MoveLight(playTime);
 
-        rottmp %= 360.0f;
-        rotatingSun.MoveLight(rottmp);
-
-        // rottmpが195を超えるとGameOver
-        if(rottmp > 195.0f)
+        // playTimeが195を超えるとGameOver
+        if(playTime > 195.0f)
         {
-            GameManager.instance.SetGameResult(1);
+            SetGameResult(1);
         }
     }
 
@@ -119,8 +118,8 @@ public class GameManager : MonoBehaviour
     public void SunBack(float back)
     {
         isBack = true;
-        startBack = rottmp;
-        finishBack = rottmp - back;
+        startBack = playTime;
+        finishBack = playTime - back;
         if(finishBack <= 0)
         {
             finishBack = 0;
@@ -134,7 +133,7 @@ public class GameManager : MonoBehaviour
     {
         captureDog++;
         // 捕まえた犬の数がgoalConditionと同じになれば金の鍵を具現化
-        if(captureDog >= MakeMaze.instance.goalCondition)
+        if(captureDog >= MakeMaze.Instance.goalCondition)
         {
             playerCtrl.SetActiveKey(4);
         }
@@ -148,8 +147,8 @@ public class GameManager : MonoBehaviour
     {
         coinNum += _coinValue;
         stageCoinNum += _coinValue;
-        CanvasManager.instance.SetValueCoin(coinNum);
-        CanvasManager.instance.ButtonManagement(coinNum);
+        CanvasManager.Instance.SetValueCoin(coinNum);
+        CanvasManager.Instance.ButtonManagement(coinNum);
     }
 
     /// <summary>
@@ -159,8 +158,8 @@ public class GameManager : MonoBehaviour
     public void UseMoney(int _useCoin)
     {
         coinNum -= _useCoin;
-        CanvasManager.instance.SetValueCoin(coinNum);
-        CanvasManager.instance.ButtonManagement(coinNum);
+        CanvasManager.Instance.SetValueCoin(coinNum);
+        CanvasManager.Instance.ButtonManagement(coinNum);
     }
 
     /// <summary>
@@ -177,10 +176,8 @@ public class GameManager : MonoBehaviour
     // SceneChangeする際に、呼ばれる関数
     public void GameSceneLoaded(Scene nongame, LoadSceneMode mode)
     {
-        // シーンチェンジ先のCanvas内のNonGameCanvasCtrlスクリプトのResultPanel関数を呼ぶ
-        var canvasManager = GameObject.Find("Canvas").GetComponent<NonGameCanvasManager>();
-
-        canvasManager.ResultPanel(resultNum, GameManager.instance.stageCoinNum, 195.0f - rottmp, GameManager.instance.coinNum, CanvasManager.instance.countPush[2] + 1);
+        // シーンチェンジ先のNonGameCanvasCtrlスクリプトのResultPanel関数を呼ぶ
+        NonGameCanvasManager.Instance.ResultPanel(resultNum, stageCoinNum, 195.0f - playTime, coinNum, CanvasManager.Instance.countPush[2] + 1);
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
 }

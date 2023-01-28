@@ -466,6 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max: 21
   moveMap: 0
+  minMove: 30
   isGoalSet: 0
   goalCondition: 0
   wall: {fileID: 1310684885643474241, guid: 5cf3d075c994d5d48a75a62ecfdd1658, type: 3}
@@ -485,6 +486,7 @@ MonoBehaviour:
   noPassCells: []
   stayDogCells: []
   walkDogStartCell: {x: 0, y: 0}
+  floorSize: 40
 --- !u!4 &417291825
 Transform:
   m_ObjectHideFlags: 0
@@ -822,10 +824,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1225,10 +1227,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1359,10 +1361,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1938,10 +1940,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2468,13 +2470,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 360322072797021411}
     - target: {fileID: 51698256431871013, guid: 19a407e0fbfc0ac4eb9a6684f994dcb5, type: 3}
-      propertyPath: makeMaze
+      propertyPath: shitCtrl
       value: 
-      objectReference: {fileID: 417291824}
-    - target: {fileID: 51698256431871013, guid: 19a407e0fbfc0ac4eb9a6684f994dcb5, type: 3}
-      propertyPath: disButton
-      value: 
-      objectReference: {fileID: 1901002771}
+      objectReference: {fileID: -7262836559139454180, guid: e8d6a772e185f5f49ba7260f1bc755ad, type: 3}
     - target: {fileID: 51698256431871014, guid: 19a407e0fbfc0ac4eb9a6684f994dcb5, type: 3}
       propertyPath: m_Name
       value: WalkDog
@@ -2982,15 +2980,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1562148334215635132, guid: 72c667b73597f0844a7860bff95c31c6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.07191175
+      value: -0.07191176
       objectReference: {fileID: 0}
     - target: {fileID: 1562148334215635132, guid: 72c667b73597f0844a7860bff95c31c6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.009223152
+      value: -0.009223144
       objectReference: {fileID: 0}
     - target: {fileID: 1562148334215635132, guid: 72c667b73597f0844a7860bff95c31c6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0006650034
+      value: -0.0006650026
       objectReference: {fileID: 0}
     - target: {fileID: 1562148335125470818, guid: 72c667b73597f0844a7860bff95c31c6, type: 3}
       propertyPath: m_LocalPosition.x

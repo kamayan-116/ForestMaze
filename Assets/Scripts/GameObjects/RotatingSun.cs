@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class RotatingSun : MonoBehaviour
 {
     [SerializeField] private Vector3 rot = new Vector3(0f, 330f, 0f);  // Lightの向き
-    [SerializeField] float fIntensity;  // ライトの明るさ
+    [SerializeField] private float fIntensity;  // ライトの明るさ
     
     // Start is called before the first frame update
     void Start()
@@ -33,9 +33,10 @@ public class RotatingSun : MonoBehaviour
     /// <summary>
     /// ゲームの経過時間をLightの回転に入れる関数
     /// </summary>
-    /// <param name="_rottmp">ゲームの経過時間</param>
-    public void MoveLight(float _rottmp)
+    /// <param name="rottmp">ゲームの経過時間</param>
+    public void MoveLight(float rottmp)
     {
-        transform.eulerAngles = new Vector3(-_rottmp, -30, 0);
+        rottmp %= 360.0f;
+        transform.eulerAngles = new Vector3(-rottmp, -30, 0);
     }
 }

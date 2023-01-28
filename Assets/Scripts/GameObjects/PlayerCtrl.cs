@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 // プレイヤーに関するプログラム
 public class PlayerCtrl : MonoBehaviour
 {
-    Rigidbody rb;
-    Animator animCtrl;
-    [SerializeField] float speed = 5;  // 移動スピード
-    [SerializeField] bool useCameraDir = true;  // カメラが使えるか否か
-    [SerializeField] float movedirOffset = 0;
-    [SerializeField] bool zEnable = true;  // z方向の動きができるか否か
-    [SerializeField] bool xEnable = true;  // x方向の動きができるか否か
-    Vector3 forwardVec;  // 前向きのVector
-    Vector3 rightVec;  // 右向きのVector
+    private Rigidbody rb;
+    private Animator animCtrl;
+    [SerializeField] private float speed = 5;  // 移動スピード
+    [SerializeField] private bool useCameraDir = true;  // カメラが使えるか否か
+    [SerializeField] private float movedirOffset = 0;
+    [SerializeField] private bool zEnable = true;  // z方向の動きができるか否か
+    [SerializeField] private bool xEnable = true;  // x方向の動きができるか否か
+    private Vector3 forwardVec;  // 前向きのVector
+    private Vector3 rightVec;  // 右向きのVector
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!GameManager.instance.isPlayerOpe) return;
+        if(!GameManager.Instance.isPlayerOpe) return;
 
         // プレイヤーの入力キー
         float xaxis = Input.GetAxis("Horizontal");

@@ -5,7 +5,7 @@ using UnityEngine;
 // Switch以外のワープに入るプログラム
 public class RandomWarp : MonoBehaviour, IInteractive
 {
-    [SerializeField] Warp[] warpOut = new Warp[10];
+    [SerializeField] private Warp[] warpOut = new Warp[10];
 
     public void Interact()
     {

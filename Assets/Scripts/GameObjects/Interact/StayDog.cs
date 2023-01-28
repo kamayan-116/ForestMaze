@@ -5,12 +5,12 @@ using UnityEngine;
 // 止まる犬に関するプログラム
 public class StayDog : MonoBehaviour, IInteractive
 {
-    [SerializeField] GameObject player;  // プレイヤーオブジェクト
-    [SerializeField] GameObject nowStayDogPos;  // マップでの犬の滞在地の表示用Cube
+    [SerializeField] private GameObject player;  // プレイヤーオブジェクト
+    [SerializeField] private GameObject nowStayDogPos;  // マップでの犬の滞在地の表示用Cube
 
     public void Interact()
     {
-        GameManager.instance.SetCaptureDog();
+        GameManager.Instance.SetCaptureDog();
         this.GetComponent<BoxCollider>().enabled = false;
         this.GetComponent<AudioSource>().enabled = false;
 

@@ -8,20 +8,20 @@ using UnityEngine.SceneManagement;
 public class NonGameCanvasManager: MonoBehaviour
 {
     #region 
-    [SerializeField] Camera mainCamera;  // カメラオブジェクト
-    [SerializeField] GameObject titlePanel;  // タイトルUI
-    [SerializeField] GameObject stageSelectPanel;  // ステージセレクトUI
-    [SerializeField] GameObject rulePanel;  // ルールUI
-    [SerializeField] GameObject resultPanel;  // ゲーム結果UI
-    [SerializeField] GameObject[] stageButton;  // ステージセレクトでのボタンUI
-    [SerializeField] Sprite[] stageButtonImage;  // ステージセレクトでのボタンの画像配列
-    [SerializeField] Text ruleText;  // ルールを表示するテキスト
-    [SerializeField] Text resultText;  // ゲーム結果を表示するテキスト
-    [SerializeField] Text resultCoinText;  // ゲーム結果での獲得コインを表示するテキスト
-    [SerializeField] Text scoreText;  // ゲーム結果でのスコアを表示するテキスト
-    [SerializeField] Text highScoreText;  // ゲーム結果でのハイスコアを表示するテキスト
-    [SerializeField] Text stageCoinText;  // ステージセレクトでの累計獲得コインを表示するテキスト
-    [SerializeField] GameObject newRecord;  // ハイスコア更新した際のnew Recordオブジェクト
+    [SerializeField] private Camera mainCamera;  // カメラオブジェクト
+    [SerializeField] private GameObject titlePanel;  // タイトルUI
+    [SerializeField] private GameObject stageSelectPanel;  // ステージセレクトUI
+    [SerializeField] private GameObject rulePanel;  // ルールUI
+    [SerializeField] private GameObject resultPanel;  // ゲーム結果UI
+    [SerializeField] private GameObject[] stageButton;  // ステージセレクトでのボタンUI
+    [SerializeField] private Sprite[] stageButtonImage;  // ステージセレクトでのボタンの画像配列
+    [SerializeField] private Text ruleText;  // ルールを表示するテキスト
+    [SerializeField] private Text resultText;  // ゲーム結果を表示するテキスト
+    [SerializeField] private Text resultCoinText;  // ゲーム結果での獲得コインを表示するテキスト
+    [SerializeField] private Text scoreText;  // ゲーム結果でのスコアを表示するテキスト
+    [SerializeField] private Text highScoreText;  // ゲーム結果でのハイスコアを表示するテキスト
+    [SerializeField] private Text stageCoinText;  // ステージセレクトでの累計獲得コインを表示するテキスト
+    [SerializeField] private GameObject newRecord;  // ハイスコア更新した際のnew Recordオブジェクト
     #endregion
     
     /// <summary>
@@ -31,11 +31,12 @@ public class NonGameCanvasManager: MonoBehaviour
     private int clearStageNo;  // 現在クリアしている最高ステージ
     private int stageGetCoinNum;  // 現在プレイしたステージでの獲得コイン
     [SerializeField] private int totalGetCoinNum;  // 累計獲得コイン
+    [SerializeField] private int totalCoinCond;  // 累計獲得コイン条件
     private int score = 0;  // 現在のステージでのスコア
     private int highScore;  // 現在のステージでのハイスコア
     private int[] stageHiScore;  // 各ステージでのハイスコア
 
-    public static NonGameCanvasManager instance;
+    private static NonGameCanvasManager instance;
     public static NonGameCanvasManager Instance {get => instance;}
 
     private void Awake()
@@ -65,27 +66,27 @@ public class NonGameCanvasManager: MonoBehaviour
         
         for(int i = 0; i <= stageButton.GetUpperBound(0); i++)
         {
-            bool buttonEnable;  // ボタンが使えるか否か
+            // bool buttonEnable;  // ボタンが使えるか否か
 
-            // 現在のクリアステージより1つ大きな数字までしかボタンの有効化を行わないようにする
-            if(clearStageNo < i)
-            {
-                buttonEnable = false;
-                // 無効化の場合画像を鍵の画像にする
-                stageButton[i].GetComponent<Image>().sprite = stageButtonImage[1];
-            }
-            else
-            {
-                buttonEnable = true;
-                stageButton[i].GetComponent<Image>().sprite = stageButtonImage[0];
-            }
+            // // 現在のクリアステージより1つ大きな数字までしかボタンの有効化を行わないようにする
+            // if(clearStageNo < i)
+            // {
+            //     buttonEnable = false;
+            //     // 無効化の場合画像を鍵の画像にする
+            //     stageButton[i].GetComponent<Image>().sprite = stageButtonImage[1];
+            // }
+            // else
+            // {
+            //     buttonEnable = true;
+            //     stageButton[i].GetComponent<Image>().sprite = stageButtonImage[0];
+            // }
 
-            // ボタンの有効化
-            stageButton[i].GetComponent<Button>().interactable = buttonEnable;
+            // // ボタンの有効化
+            // stageButton[i].GetComponent<Button>().interactable = buttonEnable;
         }
 
-        // ステージ5までクリアし、累計獲得コインが1200を超えるとステージ6を有効化
-        if(totalGetCoinNum > 1200 && clearStageNo == 5)
+        // ステージ5までクリアし、累計獲得コインがtotalCoinCondを超えるとステージ6を有効化
+        if(totalGetCoinNum > totalCoinCond && clearStageNo == 5)
         {
             stageButton[5].GetComponent<Button>().interactable = true;
         }

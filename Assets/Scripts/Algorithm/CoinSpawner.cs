@@ -6,14 +6,13 @@ using UnityEngine;
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject coinPrefab;  // コイン
-    [SerializeField] float placementInterval = 10.0f;  // コインを設置する間隔
-    [SerializeField] float coinPositionY = 1.0f;  // コイン自体のサイズ（サイズ分上に生成する）
-    GameObject floorObj;  // 迷路1つずつのオブジェクト
-    Vector3 floorSize;  // 迷路1つのサイズ
-    Ray ray;
-    RaycastHit rayCastHit;
-    Vector3 rayPosition;
-    List<Vector3> positions = new List<Vector3>();  // コインを生成する場所のリスト
+    [SerializeField] private float placementInterval = 10.0f;  // コインを設置する間隔
+    [SerializeField] private float coinPositionY = 1.0f;  // コイン自体のサイズ（サイズ分上に生成する）
+    private GameObject floorObj;  // 迷路1つずつのオブジェクト
+    private Vector3 floorSize;  // 迷路1つのサイズ
+    private Ray ray;
+    private RaycastHit rayCastHit;
+    private List<Vector3> positions = new List<Vector3>();  // コインを生成する場所のリスト
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +28,7 @@ public class CoinSpawner : MonoBehaviour
     void GetFloorSize()
     {
         MeshRenderer floorRenderer = floorObj.GetComponent<MeshRenderer>();
-        floorSize = new Vector3(floorRenderer.bounds.size.x * MakeMaze.instance.max, floorRenderer.bounds.size.y, floorRenderer.bounds.size.z * MakeMaze.instance.max);
+        floorSize = new Vector3(floorRenderer.bounds.size.x * MakeMaze.Instance.max, floorRenderer.bounds.size.y, floorRenderer.bounds.size.z * MakeMaze.Instance.max);
     }
 
     // コインの生成場所の決定

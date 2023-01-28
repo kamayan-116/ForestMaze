@@ -1281,6 +1281,7 @@ MonoBehaviour:
   newRecord: {fileID: 567584711}
   stageNo: 0
   totalGetCoinNum: 0
+  totalCoinCond: 1200
 --- !u!1 &1100344141
 GameObject:
   m_ObjectHideFlags: 0

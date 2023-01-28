@@ -7,6 +7,6 @@ public class HouseCtrl : MonoBehaviour,  IInteractive
     // Goalのタグと当たればNonGameSceneにシーンチェンジ
     public void Interact()
     {
-        GameManager.instance.SetGameResult(0);
+        GameManager.Instance.SetGameResult(0);
     }
 }

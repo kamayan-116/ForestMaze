@@ -7,34 +7,34 @@ using UnityEngine.UI;
 public class CanvasManager : MonoBehaviour
 {
     #region   // パラメータ設定
-    [SerializeField] GameObject player;  // プレイヤーオブジェクト
-    [SerializeField] GameObject dog;  // 歩く犬のオブジェクト
-    Vector3 playerPos;  // プレイヤーの座標
-    Vector3 dogPos;  // 犬の座標
-    float distance;  //　プレイヤーと歩く犬との距離
-    [SerializeField] GameObject longHand;  // 長針
-    [SerializeField] GameObject shortHand;  // 短針
-    [SerializeField] Text handcoinText;  // コインの枚数を表示するテキスト
-    [SerializeField] float upSpeed;  // プレイヤーの1回あたりのアップするスピード
+    [SerializeField] private GameObject player;  // プレイヤーオブジェクト
+    [SerializeField] private GameObject dog;  // 歩く犬のオブジェクト
+    private Vector3 playerPos;  // プレイヤーの座標
+    private Vector3 dogPos;  // 犬の座標
+    private float distance;  //　プレイヤーと歩く犬との距離
+    [SerializeField] private GameObject longHand;  // 長針
+    [SerializeField] private GameObject shortHand;  // 短針
+    [SerializeField] private Text handcoinText;  // コインの枚数を表示するテキスト
+    [SerializeField] private float upSpeed;  // プレイヤーの1回あたりのアップするスピード
     /// <summary>
     /// 各ボタンを入れた配列(Dis,Speed,Time,Map)
     /// </summary>
     public Button[] buttons = new Button[4];
-    [SerializeField] int[] pushableCoinNum;  // 各ボタンを押せる条件や押した際に使うコイン数
+    [SerializeField] private int[] pushableCoinNum;  // 各ボタンを押せる条件や押した際に使うコイン数
     /// <summary>
     /// 各ボタンを押せる回数
     /// </summary>
     public int[] countPush;
-    [SerializeField] GameObject timeBackObj;  // 時を戻そう
-    [SerializeField] float timeBackLimit; // 時を戻そうを表示する最大時間
-    [SerializeField] GameObject disObj;  // プレイヤーと犬との距離のオブジェクト
-    [SerializeField] Text disText;  // プレイヤーとの距離を表示するテキスト
-    [SerializeField] float disTimeLimit; // 距離のテキストを表示する最大時間
-    [SerializeField] GameObject mapObj;  // Mapのオブジェクト
-    [SerializeField] float mapTimeLimit; // Mapを表示する最大時間
+    [SerializeField] private GameObject timeBackObj;  // 時を戻そう
+    [SerializeField] private float timeBackLimit; // 時を戻そうを表示する最大時間
+    [SerializeField] private GameObject disObj;  // プレイヤーと犬との距離のオブジェクト
+    [SerializeField] private Text disText;  // プレイヤーとの距離を表示するテキスト
+    [SerializeField] private float disTimeLimit; // 距離のテキストを表示する最大時間
+    [SerializeField] private GameObject mapObj;  // Mapのオブジェクト
+    [SerializeField] private float mapTimeLimit; // Mapを表示する最大時間
     #endregion
 
-    public static CanvasManager instance;
+    private static CanvasManager instance;
     public static CanvasManager Instance {get => instance;}
 
     private void Awake()
@@ -45,7 +45,7 @@ public class CanvasManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ButtonManagement(GameManager.instance.coinNum);
+        ButtonManagement(GameManager.Instance.coinNum);
         // ステージが5未満の際はDistanceボタンを使えない
         if(NonGameCanvasManager.Instance.stageNo < 5)
         {
@@ -54,11 +54,6 @@ public class CanvasManager : MonoBehaviour
         else
         {
             countPush[0] = 1;
-        }
-
-        foreach(Button button in buttons)
-        {
-            button.image.color = new Color32(255, 255, 255, 100);
         }
     }
 
@@ -77,9 +72,8 @@ public class CanvasManager : MonoBehaviour
         // UIの時計の針回転に関するプログラム
         // Lightの角度に合わせてそれぞれの針を回転
         // Lightが真上の時をAM0:00、真下の時をPM0:00で合うように針を合わせる
-        shortHand.transform.eulerAngles = new Vector3(0, 0, -(GameManager.instance.rottmp + 90) * 2);
-        longHand.transform.eulerAngles = new Vector3(0, 0, -GameManager.instance.rottmp * 24);
-
+        shortHand.transform.eulerAngles = new Vector3(0, 0, -(GameManager.Instance.playTime + 90) * 2);
+        longHand.transform.eulerAngles = new Vector3(0, 0, -GameManager.Instance.playTime * 24);
     }
 
     /// <summary>
@@ -117,18 +111,18 @@ public class CanvasManager : MonoBehaviour
     public void TimeClick()
     {
         //Debug.Log("TimeBack押された");
-        GameManager.instance.UseMoney(pushableCoinNum[2]);
+        GameManager.Instance.UseMoney(pushableCoinNum[2]);
         countPush[2]--;
         timeBackObj.SetActive(true);
         StartCoroutine("BackInactive");
-        GameManager.instance.SunBack(90.0f);
+        GameManager.Instance.SunBack(90.0f);
     }
 
     // 右上のSpeedボタンを押した際に呼ばれる関数
     public void SpeedClick()
     {
         //Debug.Log("Speed押された");
-        GameManager.instance.UseMoney(pushableCoinNum[1]);
+        GameManager.Instance.UseMoney(pushableCoinNum[1]);
         player.GetComponent<PlayerCtrl>().SpeedUp(upSpeed);
         countPush[1]--;
     }
@@ -137,7 +131,7 @@ public class CanvasManager : MonoBehaviour
     public void DistanceClick()
     {
         //Debug.Log("Distance押された");
-        GameManager.instance.UseMoney(pushableCoinNum[0]);
+        GameManager.Instance.UseMoney(pushableCoinNum[0]);
         disObj.SetActive(true);
         StartCoroutine("DistanceInactive");
     }
@@ -146,10 +140,10 @@ public class CanvasManager : MonoBehaviour
     public void MapClick()
     {
         ///Debug.Log("Map押された");
-        GameManager.instance.UseMoney(pushableCoinNum[3]);
+        GameManager.Instance.UseMoney(pushableCoinNum[3]);
         mapObj.SetActive(true);
         StartCoroutine("MapInactive");
-        GameManager.instance.moveClock = false;
+        GameManager.Instance.moveClock = false;
     }
     #endregion
 
@@ -159,7 +153,6 @@ public class CanvasManager : MonoBehaviour
     public void ButtonAppear(Button _button)
     {
         _button.interactable = true;
-        _button.image.color = new Color32(255, 255, 255, 255);
     }
 
     /// <summary>
@@ -168,7 +161,6 @@ public class CanvasManager : MonoBehaviour
     public void ButtonHide(Button _button)
     {
         _button.interactable = false;
-        _button.image.color = new Color32(255, 255, 255, 100);
     }
 
     // timeBackLimit後に時を戻そうのオブジェクトを非表示にするコルーチン関数
@@ -193,6 +185,6 @@ public class CanvasManager : MonoBehaviour
         yield return new WaitForSeconds(mapTimeLimit);
 
         mapObj.SetActive(false);
-        GameManager.instance.moveClock = true;
+        GameManager.Instance.moveClock = true;
     }
 }

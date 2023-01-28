@@ -5,22 +5,20 @@ using UnityEngine;
 // コインやコインバーに関するプログラム
 public class MoneyCtrl : MonoBehaviour, IInteractive
 {
-    GameObject player;  // プレイヤーオブジェクト
-    Vector3 playerPos;  // プレイヤーの座標
-    float distance;  //　プレイヤーとコインとの距離
-    [SerializeField] float actionDistance;  // 回転やコライダーができる距離
-    float speed = 100f;  // コインの回転スピード
-    float getSpeed = 10f;  // 獲得時の回転倍率
-    bool isRotate;  // コインが回転できるか否か
-    bool isGet = false;  // コインをゲットしたか否か
-    float lifetime = 0.5f;  // Getしてから消えるまでの時間
-    GameObject handCoinText;
-    [SerializeField] int coinValue;  // 各コインの価値
+    private GameObject player;  // プレイヤーオブジェクト
+    private Vector3 playerPos;  // プレイヤーの座標
+    private float distance;  //　プレイヤーとコインとの距離
+    [SerializeField] private float actionDistance;  // 回転やコライダーができる距離
+    private float speed = 100f;  // コインの回転スピード
+    private float getSpeed = 10f;  // 獲得時の回転倍率
+    private bool isRotate;  // コインが回転できるか否か
+    private bool isGet = false;  // コインをゲットしたか否か
+    private float lifetime = 0.5f;  // Getしてから消えるまでの時間
+    [SerializeField] private int coinValue;  // 各コインの価値
     
     // Start is called before the first frame update
     void Start()
     {
-        handCoinText = GameObject.Find("HandCoinText");
         player = GameObject.Find("Player");
     }
 
@@ -65,7 +63,7 @@ public class MoneyCtrl : MonoBehaviour, IInteractive
             isGet = true;
             this.GetComponent<SphereCollider>().enabled = false;
             transform.position += Vector3.up * 1.5f;
-            GameManager.instance.GetMoney(coinValue);
+            GameManager.Instance.GetMoney(coinValue);
         }
     }
     

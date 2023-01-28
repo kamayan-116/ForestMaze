@@ -169,11 +169,11 @@ MonoBehaviour:
   player: {fileID: 0}
   kusoObj: {fileID: 3276625652231836898, guid: e8d6a772e185f5f49ba7260f1bc755ad, type: 3}
   nowWalkDogPos: {fileID: 2749927979179518184}
-  disButton: {fileID: 0}
-  makeMaze: {fileID: 0}
   isPlayerTouch: 0
   speed: 15
   isDijkstra: 1
+  spanTime: 5
+  countShitMax: 3
 --- !u!1 &2749927979179518184
 GameObject:
   m_ObjectHideFlags: 0

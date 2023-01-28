@@ -5,7 +5,7 @@ using UnityEngine;
 // Switchのワープに関するプログラム
 public class SwitchWarp : MonoBehaviour, IInteractive
 {
-    [SerializeField] Warp switchWarpOut;
+    [SerializeField] private Warp switchWarpOut;
 
     public void Interact()
     {

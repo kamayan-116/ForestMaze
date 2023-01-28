@@ -5,7 +5,7 @@ using UnityEngine;
 // ワープの移動に関するプログラム
 public class Warp : MonoBehaviour
 {
-	[SerializeField] Transform TargetObject;
+	[SerializeField] private Transform TargetObject;
 
     public void WarpOut()
     {

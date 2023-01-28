@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwitchCtrl : MonoBehaviour, IInteractive
 {
-    [SerializeField] PlayerCtrl playerCtrl;
+    [SerializeField] private PlayerCtrl playerCtrl;
     
     // プレイヤーと当たった際銀の鍵を具現化
     public void Interact()
