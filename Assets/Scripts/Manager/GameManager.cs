@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerCtrl playerCtrl;  // プレイヤーのスクリプト
     [SerializeField] private RotatingSun rotatingSun;  // Lightのスクリプト
 
-    public static GameManager instance;
+    private static GameManager instance;
     public static GameManager Instance {get => instance;}
 
     private void Awake()
