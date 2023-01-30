@@ -7,18 +7,16 @@ using UnityEngine;
 public class Dijkstra
 {
     private static readonly int STEPMAX = 10000;  // 初期化の際に入れる変数
-    private readonly MakeMaze mazedata;
     private readonly int[,] costmap;  // 各Mapのコストを入れる二次元配列
 
     // costmapの初期化（コンストラクタ）
-    public Dijkstra(MakeMaze _mazedata)
+    public Dijkstra()
     {
-        mazedata = _mazedata;
-        // mazedata.maxが壁を含まないサイズに対し、costmapは壁を含んだ計算が必要のため「+2」
-        costmap = new int[mazedata.max + 2, mazedata.max + 2];
-        for(int j=0; j<mazedata.max + 2; ++j)
+        // MakeMaze.Instance.maxが壁を含まないサイズに対し、costmapは壁を含んだ計算が必要のため「+2」
+        costmap = new int[MakeMaze.Instance.max + 2, MakeMaze.Instance.max + 2];
+        for(int j=0; j<MakeMaze.Instance.max + 2; ++j)
         {
-            for(int i=0; i<mazedata.max + 2; ++i)
+            for(int i=0; i<MakeMaze.Instance.max + 2; ++i)
             {
                 costmap[j, i] = STEPMAX;
             }
@@ -79,9 +77,9 @@ public class Dijkstra
     // 全Map中の_nowcostに当たる場所のコスト計算を行う関数
     private void CalclateCost(int _nowcost)
     {
-        for(int j=0; j<mazedata.max + 2; ++j)
+        for(int j=0; j<MakeMaze.Instance.max + 2; ++j)
         {
-            for(int i=0; i<mazedata.max + 2; ++i)
+            for(int i=0; i<MakeMaze.Instance.max + 2; ++i)
             {
                 if (costmap[j, i] == _nowcost)
                 {
@@ -99,10 +97,10 @@ public class Dijkstra
             // 前後左右の場所をtmpposに代入
             var tmppos = (_pos + position);
             // tmpposが壁ではないか確認
-            if(!mazedata.IsOutOfBounds(tmppos.x, tmppos.y))
+            if(!MakeMaze.Instance.IsOutOfBounds(tmppos.x, tmppos.y))
             {
                 // 前後左右が道であり、costmapの値が_nowcost+1より大きい場合に更新
-                if(mazedata.cells[tmppos.x, tmppos.y] == MakeMaze.CellType.Path && costmap[tmppos.y+1, tmppos.x+1] > _nowcost + 1)
+                if(MakeMaze.Instance.cells[tmppos.x, tmppos.y] == MakeMaze.CellType.Path && costmap[tmppos.y+1, tmppos.x+1] > _nowcost + 1)
                 {
                     costmap[tmppos.y+1, tmppos.x+1] = _nowcost + 1;
                 }

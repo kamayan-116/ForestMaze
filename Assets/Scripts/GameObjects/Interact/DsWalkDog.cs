@@ -66,7 +66,7 @@ public class DsWalkDog : MonoBehaviour, IInteractive
         #region // ダイクストラ法の計算と犬の徘徊プログラム
         if(isDijkstra)  // ダイクストラ法の計算
         {
-            pathdata = new Dijkstra(MakeMaze.Instance).DijkstraFinding(startCell, goalCell);
+            pathdata = new Dijkstra().DijkstraFinding(startCell, goalCell);
 
             // 計算結果をpvec3のキューに代入
             foreach(var p in pathdata)
