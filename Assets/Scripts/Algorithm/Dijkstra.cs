@@ -8,15 +8,17 @@ public class Dijkstra
 {
     private static readonly int STEPMAX = 10000;  // 初期化の際に入れる変数
     private readonly int[,] costmap;  // 各Mapのコストを入れる二次元配列
+    // MakeMaze.Instance.maxが壁を含まないサイズに対し、costmapは壁を含んだ計算が必要のため「+2」
+    private int costMapSize = MakeMaze.Instance.max + 2;
 
     // costmapの初期化（コンストラクタ）
     public Dijkstra()
     {
-        // MakeMaze.Instance.maxが壁を含まないサイズに対し、costmapは壁を含んだ計算が必要のため「+2」
-        costmap = new int[MakeMaze.Instance.max + 2, MakeMaze.Instance.max + 2];
-        for(int j=0; j<MakeMaze.Instance.max + 2; ++j)
+        
+        costmap = new int[costMapSize, costMapSize];
+        for(int j=0; j<costMapSize; ++j)
         {
-            for(int i=0; i<MakeMaze.Instance.max + 2; ++i)
+            for(int i=0; i<costMapSize; ++i)
             {
                 costmap[j, i] = STEPMAX;
             }
@@ -45,8 +47,7 @@ public class Dijkstra
         var result = new List<Vector2Int>(); 
 
         var travelingpos = _start;  // ダイクストラ法のスタート位置（初期値：スタート座標）
-        // Debug.Log(costmap[travelingpos.y+1,travelingpos.x+1]);
-
+        
         // スタートのcostmapが0より大きい間継続＝ゴールに到達していない
         while(costmap[travelingpos.y+1,travelingpos.x+1] > 0)
         {
@@ -74,12 +75,15 @@ public class Dijkstra
         return result;
     }
 
-    // 全Map中の_nowcostに当たる場所のコスト計算を行う関数
+    /// <summary>
+    /// 全Map中の_nowcostに当たる場所のコスト計算を行う関数
+    /// </summary>
+    /// <param name="_nowcost">現在のコスト</param>
     private void CalclateCost(int _nowcost)
     {
-        for(int j=0; j<MakeMaze.Instance.max + 2; ++j)
+        for(int j=0; j<costMapSize; ++j)
         {
-            for(int i=0; i<MakeMaze.Instance.max + 2; ++i)
+            for(int i=0; i<costMapSize; ++i)
             {
                 if (costmap[j, i] == _nowcost)
                 {
@@ -89,7 +93,11 @@ public class Dijkstra
         }
     }
 
-    // _posの場所の前後左右に新たなコストを代入する関数
+    /// <summary>
+    /// _posの場所の前後左右に新たなコストを代入する関数
+    /// </summary>
+    /// <param name="_pos">_nowcostに値する座標</param>
+    /// <param name="_nowcost">_nowcostのコスト値</param>
     private void SetValueAround(Vector2Int _pos, int _nowcost)
     {
         foreach(var position in MakeMaze.Positions)
